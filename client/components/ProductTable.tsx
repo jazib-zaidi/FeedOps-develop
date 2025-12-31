@@ -3534,7 +3534,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[20] ? { width: colWidths[20] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                   Custome Lebel 1
                 </div>
                 <div
@@ -3555,7 +3555,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[20] ? { width: colWidths[20] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                   Custome Lebel 2
                 </div>
                 <div
@@ -3576,7 +3576,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[20] ? { width: colWidths[20] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                   Custome Lebel 3
                 </div>
                 <div
@@ -3597,7 +3597,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[20] ? { width: colWidths[20] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                   Custome Lebel 4
                 </div>
                 <div
@@ -3618,7 +3618,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[20] ? { width: colWidths[20] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                   Custome Lebel 5
                 </div>
                 <div
@@ -3639,7 +3639,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[20] ? { width: colWidths[20] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                   Custome Lebel 6
                 </div>
                 <div
@@ -3660,7 +3660,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[20] ? { width: colWidths[20] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                   Custome Lebel 7
                 </div>
                 <div
@@ -3681,7 +3681,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[20] ? { width: colWidths[20] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                   Custome Lebel 8
                 </div>
                 <div
@@ -3702,7 +3702,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[20] ? { width: colWidths[20] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                   Custome Lebel 9
                 </div>
                 <div
