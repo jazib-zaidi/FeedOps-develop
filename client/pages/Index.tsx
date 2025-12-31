@@ -123,7 +123,7 @@ export default function Index() {
                       </button>
                     </TooltipTrigger>
                     <TooltipContent side="bottom">
-                      Add filters to the product list
+                      Add filters to manage visible rows
                     </TooltipContent>
                   </Tooltip>
 
@@ -174,8 +174,12 @@ export default function Index() {
                       </button>
                     </TooltipTrigger>
                     <TooltipContent side="bottom">
-                      Import an external file to enhance or enrich existing
-                      product data.
+                      <div className="text-sm">
+                        Import an external file
+                        <div className="text-xs text-gray-500 mt-1">
+                          To enhance or enrich existing product data.
+                        </div>
+                      </div>
                     </TooltipContent>
                   </Tooltip>
                   <Tooltip>
