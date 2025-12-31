@@ -2752,6 +2752,8 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
   );
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const bottomBarRef = useRef<HTMLDivElement | null>(null);
+  const [bottomInnerWidth, setBottomInnerWidth] = useState<number>(0);
   const [showRightShadow, setShowRightShadow] = useState(false);
   const tableRef = useRef<HTMLTableElement | null>(null);
   const [colWidths, setColWidths] = useState<number[]>([]);
@@ -2822,8 +2824,13 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
         }
       }
       setCandidateIndex(candidate);
-
       setShowRightShadow(el.scrollLeft + el.clientWidth < el.scrollWidth);
+      // keep the bottom scrollbar synced when the main scroll area moves
+      try {
+        if (bottomBarRef.current) bottomBarRef.current.scrollLeft = el.scrollLeft;
+      } catch (e) {
+        // ignore
+      }
     };
 
     calcWidthsAndCandidate();
@@ -2835,6 +2842,41 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
       window.removeEventListener("resize", calcWidthsAndCandidate);
     };
   }, []);
+
+  // Keep the bottom scrollbar inner width in sync and wire scroll syncing
+  useEffect(() => {
+    const tb = tableRef.current;
+    const s = scrollRef.current;
+    const b = bottomBarRef.current;
+    if (!tb || !s || !b) return;
+
+    const updateWidth = () => {
+      setBottomInnerWidth(tb.scrollWidth);
+    };
+
+    updateWidth();
+    const ro = new ResizeObserver(() => updateWidth());
+    ro.observe(tb);
+
+    const onMainScroll = () => {
+      if (b) b.scrollLeft = s!.scrollLeft;
+    };
+    const onBottomScroll = () => {
+      if (s) s.scrollLeft = b!.scrollLeft;
+    };
+
+    s.addEventListener("scroll", onMainScroll);
+    b.addEventListener("scroll", onBottomScroll);
+
+    window.addEventListener("resize", updateWidth);
+
+    return () => {
+      ro.disconnect();
+      s.removeEventListener("scroll", onMainScroll);
+      b.removeEventListener("scroll", onBottomScroll);
+      window.removeEventListener("resize", updateWidth);
+    };
+  }, [tableRef.current, scrollRef.current, bottomBarRef.current]);
 
   // Detect truncated cells (title/description) whenever column widths change or on resize
   useEffect(() => {
@@ -3571,6 +3613,23 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
             })}
           </tbody>
         </table>
+      </div>
+
+      {/* Sticky bottom scrollbar synced with table scroll */}
+      <div className="sticky bottom-12 z-40 px-4"> 
+        <div
+          ref={bottomBarRef as any}
+          onScroll={() => {
+            const b = bottomBarRef.current;
+            const s = scrollRef.current;
+            if (!b || !s) return;
+            s.scrollLeft = b.scrollLeft;
+          }}
+          className="overflow-x-auto overflow-y-hidden w-full"
+          style={{ height: 12 }}
+        >
+          <div style={{ width: bottomInnerWidth || (tableRef.current?.scrollWidth ?? 0), height: 1 }} />
+        </div>
       </div>
 
       {/* Pagination footer */}
