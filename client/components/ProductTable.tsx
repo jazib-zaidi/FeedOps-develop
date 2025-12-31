@@ -2938,7 +2938,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
     const clientX =
       (e as React.MouseEvent).clientX ??
       (e as React.TouchEvent).touches?.[0]?.clientX;
-    const startWidth = colWidths[index] ?? 120;
+    const startWidth = colWidths[index] ?? 200;
     resizingRef.current = { index, startX: clientX as number, startWidth };
     document.body.style.userSelect = "none";
   };
@@ -4030,7 +4030,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      Empty
+                      ----Empty-----
                     </span>
                   </td>
                   <td
@@ -4045,7 +4045,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      Empty
+                      ----Empty-----
                     </span>
                   </td>
                   <td
@@ -4060,7 +4060,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      Empty
+                      ----Empty-----
                     </span>
                   </td>
                   <td
@@ -4075,7 +4075,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      Empty
+                      ----Empty-----
                     </span>
                   </td>
                   <td
@@ -4090,7 +4090,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      Empty
+                      ----Empty-----
                     </span>
                   </td>
                   <td
@@ -4105,7 +4105,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      Empty
+                      ----Empty-----
                     </span>
                   </td>
                   <td
@@ -4120,7 +4120,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      Empty
+                      ----Empty-----
                     </span>
                   </td>
                   <td
@@ -4135,7 +4135,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      Empty
+                      ----Empty-----
                     </span>
                   </td>
                   <td
@@ -4150,7 +4150,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      Empty
+                      ----Empty-----
                     </span>
                   </td>
                 </tr>
