@@ -2938,6 +2938,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
   const pageSizeOptions = [50, 100, 250, 500];
   const [pageSize, setPageSize] = useState<number>(50);
   const [page, setPage] = useState<number>(1);
+  const [showAllEnabled, setShowAllEnabled] = useState<boolean>(false);
 
   const total = products.length;
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
@@ -2954,14 +2955,15 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
   return (
     <div
       className={
-        "rounded-[10px] border border-gray-200 shadow-sm overflow-scroll h-[78vh] transition-all duration-200 " +
-        (isFullscreen ? "flex flex-col h-full" : "")
+        "rounded-[10px] border border-gray-200 shadow-sm transition-all duration-200 flex flex-col min-h-0" +
+        (isFullscreen ? " h-full" : "")
       }
       style={isFullscreen ? { borderRadius: 0, height: "100vh" } : undefined}
     >
       <div
         ref={scrollRef as any}
-        className={isFullscreen ? "flex-1 overflow-auto" : "overflow-x-auto"}
+        className="flex-1 min-h-0 overflow-auto"
+        style={{ paddingBottom: 76 }}
         onScroll={() => {
           const el = scrollRef.current;
           if (!el) return;
@@ -3036,7 +3038,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                       setFrozenIndex((fi) => (fi === 1 ? null : 1))
                     }
                   >
-                    {frozenIndex === 1 ? "Unfreeze" : "Pin"}
+                    {frozenIndex === 1 ? "Unfreeze" : "Freeze"}
                   </button>
                 ) : null}
                 <div className="text-[#101828] text-[9px] flex items-center gap-1 mt-1">
@@ -3108,7 +3110,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                       setFrozenIndex((fi) => (fi === 2 ? null : 2))
                     }
                   >
-                    {frozenIndex === 2 ? "Unfreeze" : "Pin"}
+                    {frozenIndex === 2 ? "Unfreeze" : "Freeze"}
                   </button>
                 ) : null}
                 <div
@@ -3137,7 +3139,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                       setFrozenIndex((fi) => (fi === 3 ? null : 3))
                     }
                   >
-                    {frozenIndex === 3 ? "Unfreeze" : "Pin"}
+                    {frozenIndex === 3 ? "Unfreeze" : "Freeze"}
                   </button>
                 ) : null}
                 <div className="text-[#101828] text-[9px] flex items-center gap-1 mt-1">
@@ -3572,7 +3574,14 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
       </div>
 
       {/* Pagination footer */}
-      <div className="px-4 py-3 border-t border-[#E5E7EB] bg-white flex items-center justify-between">
+      <div
+        style={{
+          position: "sticky",
+          bottom: 0,
+          zIndex: 100,
+        }}
+        className="px-4 py-3 border-t border-[#E5E7EB] bg-white flex items-center justify-between"
+      >
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <span>Rows per page:</span>
           <select
@@ -3581,6 +3590,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
               const newSize = Number(e.target.value);
               setPageSize(newSize);
               setPage(1);
+              setShowAllEnabled(false);
             }}
             className="border rounded px-2 py-1 text-sm"
           >
@@ -3591,26 +3601,55 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
             ))}
           </select>
         </div>
+        <div className="flex items-center gap-6">
+          {/* AI Optimized */}
+          <div className="flex items-center gap-2 text-sm text-gray-700">
+            <span className="w-1 h-5 bg-[#6D5BD0] rounded-sm" />
+            <span>AI Optimized</span>
+          </div>
 
+          {/* Automated Rules */}
+          <div className="flex items-center gap-2 text-sm text-gray-700">
+            <span className="w-1 h-5 bg-[#4CAF7D] rounded-sm" />
+            <span>Automated Rules</span>
+          </div>
+
+          {/* Manual Edit */}
+          <div className="flex items-center gap-2 text-sm text-gray-700">
+            <span className="w-1 h-5 bg-[#F79009] rounded-sm" />
+            <span>Manual Edit</span>
+          </div>
+        </div>
         <div className="flex items-center gap-4">
           <div className="text-sm text-gray-600">
-            {startIndex + 1}-{endIndex} of {total}
+            {startIndex + 1}-{endIndex} of {showAllEnabled ? total : "many"}
           </div>
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
-              disabled={page <= 1}
-              className="px-3 py-1 rounded bg-gray-100 disabled:opacity-50"
-            >
-              Prev
-            </button>
-            <button
-              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-              disabled={page >= totalPages}
-              className="px-3 py-1 rounded bg-gray-100 disabled:opacity-50"
-            >
-              Next
-            </button>
+            {showAllEnabled ? (
+              <>
+                <button
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={page <= 1}
+                  className="px-3 py-1 rounded bg-gray-100 disabled:opacity-50"
+                >
+                  Prev
+                </button>
+                <button
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={page >= totalPages}
+                  className="px-3 py-1 rounded bg-gray-100 disabled:opacity-50"
+                >
+                  Next
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => setShowAllEnabled(true)}
+                className="text-sm text-blue-600 underline"
+              >
+                Show all
+              </button>
+            )}
           </div>
         </div>
       </div>

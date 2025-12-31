@@ -4,7 +4,7 @@ export function TopBar() {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <div className="fixed top-0 left-0 right-0 h-[70px] bg-black border-b border-gray-200 flex items-center justify-between px-4 z-20">
+    <div className="fixed top-0 left-0 right-0 h-[70px] bg-black border-b border-gray-200 flex items-center justify-between px-4 z-[60]">
       <div className="flex items-center gap-3">
         {/* <button className="flex items-center justify-center w-9 h-9 rounded border border-gray-200 bg-[#F9FAFB]">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">

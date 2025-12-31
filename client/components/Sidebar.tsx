@@ -186,7 +186,7 @@ export function Sidebar() {
 
   return (
     <aside
-      className={`fixed left-0 top-[70px] h-[calc(100vh-70px)] bg-white border-r border-gray-200 shadow-sm flex flex-col justify-between z-10 ${
+      className={`fixed left-0 top-[70px] h-[calc(100vh-70px)] bg-white border-r border-gray-200 shadow-sm flex flex-col justify-between  z-30 ${
         collapsed ? "w-[67px]" : "w-[220px]"
       }`}
     >
