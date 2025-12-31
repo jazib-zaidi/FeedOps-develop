@@ -125,7 +125,7 @@ export function ActionButtons() {
           </button>
         </TooltipTrigger>
         <TooltipContent side="bottom">
-          Make a change to queue updates
+          Make a change to the product data to enable this action.
         </TooltipContent>
       </Tooltip>
     </div>

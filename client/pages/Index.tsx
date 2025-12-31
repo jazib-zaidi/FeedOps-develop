@@ -148,7 +148,7 @@ export default function Index() {
                       </button>
                     </TooltipTrigger>
                     <TooltipContent side="bottom">
-                      Create a new feed rule
+                      Create a rule to automatically update product data.
                     </TooltipContent>
                   </Tooltip>
                 </div>
@@ -174,7 +174,7 @@ export default function Index() {
                       </button>
                     </TooltipTrigger>
                     <TooltipContent side="bottom">
-                      Import data into the system
+                      Add filters to manage visible rows
                     </TooltipContent>
                   </Tooltip>
                   <Tooltip>

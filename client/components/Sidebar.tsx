@@ -46,7 +46,7 @@ export function Sidebar() {
           />
         </svg>
       ),
-      label: "Overview",
+      label: "Websites",
       href: "/under-development",
     },
     {
