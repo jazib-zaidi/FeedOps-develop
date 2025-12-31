@@ -2762,8 +2762,8 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
     startX: number;
     startWidth: number;
   } | null>(null);
-  const MIN_COL_WIDTH = 80;
-  const MAX_COL_WIDTH = 200;
+  const MIN_COL_WIDTH = 100;
+  const MAX_COL_WIDTH = 500;
   const [candidateIndex, setCandidateIndex] = useState<number | null>(null);
   const [frozenIndex, setFrozenIndex] = useState<number | null>(null);
   const cellRefs = useRef<Record<string, HTMLElement | null>>({});
@@ -2799,8 +2799,10 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
         stored && stored.length === ths.length
           ? stored
           : ths.map((t, i) => {
-              if (i === 1 || i === 2) {
-                return 200;
+              // Default 250px for Product Title (1), Description (2),
+              // and Gender/Price/Quantity (11,12,13)
+              if (i === 1 || i === 2 || i === 11 || i === 12 || i === 13) {
+                return 250;
               }
               return t.offsetWidth;
             });
@@ -2827,7 +2829,8 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
       setShowRightShadow(el.scrollLeft + el.clientWidth < el.scrollWidth);
       // keep the bottom scrollbar synced when the main scroll area moves
       try {
-        if (bottomBarRef.current) bottomBarRef.current.scrollLeft = el.scrollLeft;
+        if (bottomBarRef.current)
+          bottomBarRef.current.scrollLeft = el.scrollLeft;
       } catch (e) {
         // ignore
       }
@@ -2951,7 +2954,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
     );
     setColWidths((prev) => {
       const next = [...prev];
-      next[resizingRef.current!.index] = newWidth;
+      next[resizingRef?.current!.index] = newWidth;
       return next;
     });
   };
@@ -3047,7 +3050,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     className="w-4 h-4 rounded border-gray-300"
                   />
                   <div>
-                    <div className="text-[#101828] text-sm font-bold">
+                    <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                       Item ID
                     </div>
                   </div>
@@ -3070,7 +3073,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     : undefined
                 }
               >
-                <div className="text-[#101828] text-sm font-bold">
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                   Product Title
                 </div>
                 {candidateIndex === 1 ? (
@@ -3109,7 +3112,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                 }}
               >
                 <div className="flex items-center gap-2">
-                  <div className="text-[#101828] text-sm font-bold">
+                  <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                     Description
                   </div>
                   <Tooltip>
@@ -3173,7 +3176,9 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[3] ? { width: colWidths[3] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">Brand</div>
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
+                  Brand
+                </div>
                 {candidateIndex === 3 ? (
                   <button
                     className="absolute top-2 right-2 px-2 py-0.5 text-xs bg-white border rounded shadow-sm"
@@ -3209,7 +3214,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[4] ? { width: colWidths[4] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                   Google Product Category
                 </div>
                 <div
@@ -3230,7 +3235,9 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[5] ? { width: colWidths[5] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">colour</div>
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
+                  colour
+                </div>
                 <div
                   onMouseDown={(e) => startResize(5, e)}
                   onTouchStart={(e) => startResize(5, e)}
@@ -3249,7 +3256,9 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[6] ? { width: colWidths[6] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">Material</div>
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
+                  Material
+                </div>
                 <div
                   onMouseDown={(e) => startResize(6, e)}
                   onTouchStart={(e) => startResize(6, e)}
@@ -3268,7 +3277,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[7] ? { width: colWidths[7] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                   Age Group
                 </div>
                 <div
@@ -3289,7 +3298,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[8] ? { width: colWidths[8] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
                   Condition
                 </div>
                 <div
@@ -3310,7 +3319,9 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[9] ? { width: colWidths[9] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">Size</div>
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
+                  Size
+                </div>
                 <div
                   onMouseDown={(e) => startResize(9, e)}
                   onTouchStart={(e) => startResize(9, e)}
@@ -3329,7 +3340,9 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[10] ? { width: colWidths[10] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">Pattern</div>
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
+                  Pattern
+                </div>
                 <div
                   onMouseDown={(e) => startResize(10, e)}
                   onTouchStart={(e) => startResize(10, e)}
@@ -3340,7 +3353,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                 </div>
               </th>
               <th
-                className={`text-left py-3 px-4 relative ${frozenIndex === 11 ? "sticky z-30" : ""}`}
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 11 ? "sticky z-30" : ""}`}
                 style={{
                   ...(frozenIndex === 11 && colWidths.length
                     ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
@@ -3348,10 +3361,12 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[11] ? { width: colWidths[11] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">Gender</div>
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
+                  Gender
+                </div>
               </th>
               <th
-                className={`text-left py-3 px-4 relative ${frozenIndex === 12 ? "sticky z-30" : ""}`}
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 12 ? "sticky z-30" : ""}`}
                 style={{
                   ...(frozenIndex === 12 && colWidths.length
                     ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
@@ -3359,7 +3374,345 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   ...(colWidths[12] ? { width: colWidths[12] } : {}),
                 }}
               >
-                <div className="text-[#101828] text-sm font-bold">Price</div>
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
+                  Price
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 13 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 13 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[13] ? { width: colWidths[13] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
+                  Quantity
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(13, e)}
+                  onTouchStart={(e) => startResize(13, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 14 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 14 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[14] ? { width: colWidths[14] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
+                  Availability
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(14, e)}
+                  onTouchStart={(e) => startResize(14, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 15 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 15 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[15] ? { width: colWidths[15] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
+                  GTIN
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(15, e)}
+                  onTouchStart={(e) => startResize(15, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 16 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 16 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[16] ? { width: colWidths[16] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
+                  Item Group ID
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(16, e)}
+                  onTouchStart={(e) => startResize(16, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 17 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 17 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[17] ? { width: colWidths[17] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
+                  Product Type
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(17, e)}
+                  onTouchStart={(e) => startResize(17, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 18 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 18 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[18] ? { width: colWidths[18] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold">
+                  Shipping Weight
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(18, e)}
+                  onTouchStart={(e) => startResize(18, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 relative ${frozenIndex === 19 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 19 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[19] ? { width: colWidths[19] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
+                  Images
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(19, e)}
+                  onTouchStart={(e) => startResize(19, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 20 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold">
+                  Custome Lebel 1
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(20, e)}
+                  onTouchStart={(e) => startResize(20, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 20 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold">
+                  Custome Lebel 2
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(20, e)}
+                  onTouchStart={(e) => startResize(20, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 20 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold">
+                  Custome Lebel 3
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(20, e)}
+                  onTouchStart={(e) => startResize(20, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 20 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold">
+                  Custome Lebel 4
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(20, e)}
+                  onTouchStart={(e) => startResize(20, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 20 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold">
+                  Custome Lebel 5
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(20, e)}
+                  onTouchStart={(e) => startResize(20, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 20 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold">
+                  Custome Lebel 6
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(20, e)}
+                  onTouchStart={(e) => startResize(20, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 20 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold">
+                  Custome Lebel 7
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(20, e)}
+                  onTouchStart={(e) => startResize(20, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 20 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold">
+                  Custome Lebel 8
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(20, e)}
+                  onTouchStart={(e) => startResize(20, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
+              </th>
+              <th
+                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
+                style={{
+                  ...(frozenIndex === 20 && colWidths.length
+                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
+                    : {}),
+                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                }}
+              >
+                <div className="text-[#101828] text-sm font-bold">
+                  Custome Lebel 9
+                </div>
+                <div
+                  onMouseDown={(e) => startResize(20, e)}
+                  onTouchStart={(e) => startResize(20, e)}
+                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ touchAction: "none" }}
+                >
+                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                </div>
               </th>
             </tr>
           </thead>
@@ -3405,36 +3758,11 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <div>
                       <div
                         ref={setCellRef(`title-${index}`)}
-                        className={`text-[#101828] text-sm ${expandedMap[`title-${index}`] ? "whitespace-normal" : "truncate"}`}
-                        style={
-                          expandedMap[`title-${index}`]
-                            ? { whiteSpace: "normal" }
-                            : {
-                                whiteSpace: "nowrap",
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                              }
-                        }
+                        className={`text-[#101828] text-sm whitespace-normal`}
+                        style={{ whiteSpace: "normal" }}
                       >
                         {product.short_title}
                       </div>
-                      {isTruncatedMap[`title-${index}`] &&
-                      !expandedMap[`title-${index}`] ? (
-                        <button
-                          className="text-xs text-blue-600 mt-1"
-                          onClick={() => toggleExpanded(`title-${index}`)}
-                        >
-                          Read more
-                        </button>
-                      ) : null}
-                      {expandedMap[`title-${index}`] ? (
-                        <button
-                          className="text-xs text-blue-600 mt-1"
-                          onClick={() => toggleExpanded(`title-${index}`)}
-                        >
-                          Show less
-                        </button>
-                      ) : null}
                     </div>
                   </td>
                   <td
@@ -3446,38 +3774,62 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     }
                   >
                     <div>
-                      <div
-                        ref={setCellRef(`desc-${index}`)}
-                        className={`text-[#101828] text-sm ${expandedMap[`desc-${index}`] ? "whitespace-normal" : "truncate"}`}
-                        style={
-                          expandedMap[`desc-${index}`]
-                            ? { whiteSpace: "normal" }
-                            : {
-                                whiteSpace: "nowrap",
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                              }
-                        }
-                      >
-                        {product.description}
+                      <div className="flex items-start gap-2">
+                        <div
+                          ref={setCellRef(`desc-${index}`)}
+                          className={`text-[#101828] text-sm ${expandedMap[`desc-${index}`] ? "whitespace-normal" : "truncate"}`}
+                          style={
+                            expandedMap[`desc-${index}`]
+                              ? { whiteSpace: "normal" }
+                              : {
+                                  whiteSpace: "nowrap",
+                                  overflow: "hidden",
+                                  textOverflow: "ellipsis",
+                                }
+                          }
+                        >
+                          {product.description}
+                        </div>
+                        <button
+                          className="p-1 rounded hover:bg-gray-100"
+                          onClick={() => toggleExpanded(`desc-${index}`)}
+                          aria-label={
+                            expandedMap[`desc-${index}`]
+                              ? "Collapse description"
+                              : "Expand description"
+                          }
+                        >
+                          {expandedMap[`desc-${index}`] ? (
+                            <svg
+                              width="13"
+                              height="13"
+                              viewBox="0 0 13 13"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M0.609375 3.45312C0.447759 3.45313 0.292762 3.51733 0.178482 3.63161C0.0642018 3.74589 0 3.90088 0 4.0625C0 4.22412 0.0642018 4.37911 0.178482 4.49339C0.292762 4.60767 0.447759 4.67188 0.609375 4.67188H12.3906C12.5522 4.67187 12.7072 4.60767 12.8215 4.49339C12.9358 4.37911 13 4.22412 13 4.0625C13 3.90088 12.9358 3.74589 12.8215 3.63161C12.7072 3.51733 12.5522 3.45313 12.3906 3.45312H0.609375ZM7.92188 8.32812C7.76026 8.32812 7.60526 8.39233 7.49098 8.50661C7.3767 8.62089 7.3125 8.77588 7.3125 8.9375C7.3125 9.09912 7.3767 9.25411 7.49098 9.36839C7.60526 9.48267 7.76026 9.54688 7.92188 9.54688H12.3906C12.5522 9.54688 12.7072 9.48267 12.8215 9.36839C12.9358 9.25411 13 9.09912 13 8.9375C13 8.77588 12.9358 8.62089 12.8215 8.50661C12.7072 8.39233 12.5522 8.32812 12.3906 8.32812H7.92188ZM4.21688 8.32812L3.42875 7.54C3.32111 7.42448 3.26251 7.2717 3.2653 7.11383C3.26808 6.95596 3.33203 6.80533 3.44368 6.69368C3.55533 6.58203 3.70596 6.51808 3.86383 6.51529C4.0217 6.51251 4.17448 6.57111 4.29 6.67875L6.11813 8.50688L6.54875 8.9375L6.11813 9.36812L4.29 11.1962C4.17448 11.3039 4.0217 11.3625 3.86383 11.3597C3.70596 11.3569 3.55533 11.293 3.44368 11.1813C3.33203 11.0697 3.26808 10.919 3.2653 10.7612C3.26251 10.6033 3.32111 10.4505 3.42875 10.335L4.21688 9.54688H0.609375C0.447759 9.54688 0.292762 9.48267 0.178482 9.36839C0.0642018 9.25411 0 9.09912 0 8.9375C0 8.77588 0.0642018 8.62089 0.178482 8.50661C0.292762 8.39233 0.447759 8.32812 0.609375 8.32812H4.21688Z"
+                                fill="#2F2F2F"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M5.5 19C5.35733 19 5.23833 18.952 5.143 18.856C5.04767 18.76 5 18.6413 5 18.5V5.50001C5 5.35801 5.048 5.23934 5.144 5.14401C5.24 5.04867 5.359 5.00067 5.501 5.00001C5.643 4.99934 5.76167 5.04734 5.857 5.14401C5.95233 5.24067 6 5.35934 6 5.50001V18.5C6 18.642 5.952 18.7607 5.856 18.856C5.76 18.9513 5.642 18.9993 5.5 19ZM18.499 19C18.3577 19 18.239 18.952 18.143 18.856C18.047 18.76 17.9993 18.6413 18 18.5V5.50001C18 5.35801 18.048 5.23934 18.144 5.14401C18.24 5.04867 18.359 5.00067 18.501 5.00001C18.643 4.99934 18.7617 5.04734 18.857 5.14401C18.9523 5.24067 19 5.35934 19 5.50001V18.5C19 18.642 18.952 18.7607 18.856 18.856C18.76 18.9513 18.641 18.9993 18.499 19ZM10.509 16.479L8.596 14.566C8.43467 14.404 8.354 14.2153 8.354 14C8.354 13.7847 8.43467 13.5963 8.596 13.435L10.535 11.521C10.625 11.4317 10.738 11.385 10.874 11.381C11.0093 11.377 11.127 11.4237 11.227 11.521C11.3183 11.6103 11.364 11.724 11.364 11.862C11.364 12 11.317 12.116 11.223 12.21L9.933 13.5H12.731C13.435 13.5 14.0277 13.2593 14.509 12.778C14.9903 12.2967 15.2307 11.704 15.23 11C15.2293 10.296 14.9887 9.70334 14.508 9.22201C14.0273 8.74067 13.4347 8.50001 12.73 8.50001H8.269C8.12767 8.50001 8.009 8.45201 7.913 8.35601C7.817 8.26001 7.769 8.14101 7.769 7.99901C7.769 7.85701 7.817 7.73834 7.913 7.64301C8.009 7.54767 8.12767 7.50001 8.269 7.50001H12.731C13.703 7.50001 14.5293 7.84034 15.21 8.52101C15.89 9.20167 16.23 10.028 16.23 11C16.23 11.972 15.89 12.7983 15.21 13.479C14.53 14.1597 13.7033 14.5 12.73 14.5H9.934L11.224 15.79C11.3173 15.8807 11.364 15.994 11.364 16.13C11.364 16.2653 11.3173 16.3817 11.224 16.479C11.1267 16.589 11.0077 16.6407 10.867 16.634C10.727 16.628 10.6083 16.5763 10.511 16.479"
+                                fill="black"
+                              />
+                            </svg>
+                          )}
+                        </button>
                       </div>
-                      {isTruncatedMap[`desc-${index}`] &&
-                      !expandedMap[`desc-${index}`] ? (
-                        <button
-                          className="text-xs text-blue-600 mt-1"
-                          onClick={() => toggleExpanded(`desc-${index}`)}
-                        >
-                          Read more
-                        </button>
-                      ) : null}
-                      {expandedMap[`desc-${index}`] ? (
-                        <button
-                          className="text-xs text-blue-600 mt-1"
-                          onClick={() => toggleExpanded(`desc-${index}`)}
-                        >
-                          Show less
-                        </button>
-                      ) : null}
                     </div>
                   </td>
                   <td
@@ -3489,7 +3841,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                       ...(colWidths[3] ? { width: colWidths[3] } : {}),
                     }}
                   >
-                    <span className="text-[#101828] text-sm">
+                    <span className="text-[#101828] text-sm whitespace-nowrap">
                       {product.brand}
                     </span>
                   </td>
@@ -3516,7 +3868,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     }}
                   >
                     <span
-                      className={`text-sm ${product.colour ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
+                      className={`text-sm whitespace-nowrap ${product.colour ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
                       {product.colour || "Empty"}
                     </span>
@@ -3531,7 +3883,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     }}
                   >
                     <span
-                      className={`text-sm ${product.material ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
+                      className={`text-sm whitespace-nowrap ${product.material ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
                       {product.material || "Empty"}
                     </span>
@@ -3545,7 +3897,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                       ...(colWidths[7] ? { width: colWidths[7] } : {}),
                     }}
                   >
-                    <span className="text-[#101828] text-sm">
+                    <span className="text-[#101828] text-sm whitespace-nowrap">
                       {product.age_group}
                     </span>
                   </td>
@@ -3558,7 +3910,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                       ...(colWidths[8] ? { width: colWidths[8] } : {}),
                     }}
                   >
-                    <span className="text-[#101828] text-sm">
+                    <span className="text-[#101828] text-sm whitespace-nowrap">
                       {product.condition}
                     </span>
                   </td>
@@ -3572,7 +3924,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     }}
                   >
                     <span
-                      className={`text-sm ${product.size ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
+                      className={`text-sm whitespace-nowrap ${product.size ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
                       {product.size || "Empty"}
                     </span>
@@ -3587,25 +3939,218 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     }}
                   >
                     <span
-                      className={`text-sm ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
+                      className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
                       {product.pattern || "Empty"}
                     </span>
                   </td>
                   <td
-                    className="py-3 px-4"
+                    className="py-3 px-4 border-r border-gray-100"
                     style={colWidths[11] ? { width: colWidths[11] } : undefined}
                   >
-                    <span className="text-[#101828] text-sm">
+                    <span className="text-[#101828] text-sm block truncate">
                       {product.gender}
                     </span>
                   </td>
                   <td
-                    className="py-3 px-4"
+                    className="py-3 px-4 border-r border-gray-100"
                     style={colWidths[12] ? { width: colWidths[12] } : undefined}
                   >
-                    <span className="text-[#101828] text-sm">
+                    <span className="text-[#101828] text-sm block truncate">
                       {product.price}
+                    </span>
+                  </td>
+                  <td
+                    className="py-3 px-4 border-r border-gray-100"
+                    style={colWidths[13] ? { width: colWidths[13] } : undefined}
+                  >
+                    <span className="text-[#101828] text-sm block truncate">
+                      {product.quantity ?? "-"}
+                    </span>
+                  </td>
+                  <td
+                    className="py-3 px-4 border-r border-gray-100"
+                    style={colWidths[14] ? { width: colWidths[14] } : undefined}
+                  >
+                    <span className="text-sm text-[#101828] whitespace-nowrap">
+                      {product.availability ?? "-"}
+                    </span>
+                  </td>
+                  <td
+                    className="py-3 px-4 border-r border-gray-100"
+                    style={colWidths[15] ? { width: colWidths[15] } : undefined}
+                  >
+                    <span className="text-sm text-[#101828] whitespace-nowrap">
+                      {product.gtin ?? "-"}
+                    </span>
+                  </td>
+                  <td
+                    className="py-3 px-4 border-r border-gray-100"
+                    style={colWidths[16] ? { width: colWidths[16] } : undefined}
+                  >
+                    <span className="text-sm text-[#101828] whitespace-nowrap">
+                      {product.item_group_id ?? "-"}
+                    </span>
+                  </td>
+                  <td
+                    className="py-3 px-4 border-r border-gray-100"
+                    style={colWidths[17] ? { width: colWidths[17] } : undefined}
+                  >
+                    <span className="text-sm text-[#101828]">
+                      {product.product_type ?? "-"}
+                    </span>
+                  </td>
+                  <td
+                    className="py-3 px-4 border-r border-gray-100"
+                    style={colWidths[18] ? { width: colWidths[18] } : undefined}
+                  >
+                    <span className="text-sm text-[#101828] whitespace-nowrap">
+                      {product.shipping_weight ?? "-"}
+                    </span>
+                  </td>
+                  <td
+                    className="py-3 px-4"
+                    style={colWidths[19] ? { width: colWidths[19] } : undefined}
+                  >
+                    <span className="text-sm text-[#101828] whitespace-nowrap">
+                      {Array.isArray(product.additional_image_link)
+                        ? product.additional_image_link.length
+                        : 0}
+                    </span>
+                  </td>
+                  <td
+                    className={`py-3 px-4 border-r border-gray-100 ${frozenIndex === 20 ? "sticky z-20" : ""}`}
+                    style={{
+                      ...(frozenIndex === 20 && colWidths.length
+                        ? { left: `${colWidths[0]}px`, background: "white" }
+                        : {}),
+                      ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                    }}
+                  >
+                    <span
+                      className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
+                    >
+                      Empty
+                    </span>
+                  </td>
+                  <td
+                    className={`py-3 px-4 border-r border-gray-100 ${frozenIndex === 20 ? "sticky z-20" : ""}`}
+                    style={{
+                      ...(frozenIndex === 20 && colWidths.length
+                        ? { left: `${colWidths[0]}px`, background: "white" }
+                        : {}),
+                      ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                    }}
+                  >
+                    <span
+                      className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
+                    >
+                      Empty
+                    </span>
+                  </td>
+                  <td
+                    className={`py-3 px-4 border-r border-gray-100 ${frozenIndex === 20 ? "sticky z-20" : ""}`}
+                    style={{
+                      ...(frozenIndex === 20 && colWidths.length
+                        ? { left: `${colWidths[0]}px`, background: "white" }
+                        : {}),
+                      ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                    }}
+                  >
+                    <span
+                      className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
+                    >
+                      Empty
+                    </span>
+                  </td>
+                  <td
+                    className={`py-3 px-4 border-r border-gray-100 ${frozenIndex === 20 ? "sticky z-20" : ""}`}
+                    style={{
+                      ...(frozenIndex === 20 && colWidths.length
+                        ? { left: `${colWidths[0]}px`, background: "white" }
+                        : {}),
+                      ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                    }}
+                  >
+                    <span
+                      className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
+                    >
+                      Empty
+                    </span>
+                  </td>
+                  <td
+                    className={`py-3 px-4 border-r border-gray-100 ${frozenIndex === 20 ? "sticky z-20" : ""}`}
+                    style={{
+                      ...(frozenIndex === 20 && colWidths.length
+                        ? { left: `${colWidths[0]}px`, background: "white" }
+                        : {}),
+                      ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                    }}
+                  >
+                    <span
+                      className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
+                    >
+                      Empty
+                    </span>
+                  </td>
+                  <td
+                    className={`py-3 px-4 border-r border-gray-100 ${frozenIndex === 20 ? "sticky z-20" : ""}`}
+                    style={{
+                      ...(frozenIndex === 20 && colWidths.length
+                        ? { left: `${colWidths[0]}px`, background: "white" }
+                        : {}),
+                      ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                    }}
+                  >
+                    <span
+                      className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
+                    >
+                      Empty
+                    </span>
+                  </td>
+                  <td
+                    className={`py-3 px-4 border-r border-gray-100 ${frozenIndex === 20 ? "sticky z-20" : ""}`}
+                    style={{
+                      ...(frozenIndex === 20 && colWidths.length
+                        ? { left: `${colWidths[0]}px`, background: "white" }
+                        : {}),
+                      ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                    }}
+                  >
+                    <span
+                      className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
+                    >
+                      Empty
+                    </span>
+                  </td>
+                  <td
+                    className={`py-3 px-4 border-r border-gray-100 ${frozenIndex === 20 ? "sticky z-20" : ""}`}
+                    style={{
+                      ...(frozenIndex === 20 && colWidths.length
+                        ? { left: `${colWidths[0]}px`, background: "white" }
+                        : {}),
+                      ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                    }}
+                  >
+                    <span
+                      className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
+                    >
+                      Empty
+                    </span>
+                  </td>
+                  <td
+                    className={`py-3 px-4 border-r border-gray-100 ${frozenIndex === 20 ? "sticky z-20" : ""}`}
+                    style={{
+                      ...(frozenIndex === 20 && colWidths.length
+                        ? { left: `${colWidths[0]}px`, background: "white" }
+                        : {}),
+                      ...(colWidths[20] ? { width: colWidths[20] } : {}),
+                    }}
+                  >
+                    <span
+                      className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
+                    >
+                      Empty
                     </span>
                   </td>
                 </tr>
@@ -3616,7 +4161,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
       </div>
 
       {/* Sticky bottom scrollbar synced with table scroll */}
-      <div className="sticky bottom-12 z-40 px-4"> 
+      <div className="sticky bottom-12 z-40 px-4">
         <div
           ref={bottomBarRef as any}
           onScroll={() => {
@@ -3628,7 +4173,12 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
           className="overflow-x-auto overflow-y-hidden w-full"
           style={{ height: 12 }}
         >
-          <div style={{ width: bottomInnerWidth || (tableRef.current?.scrollWidth ?? 0), height: 1 }} />
+          <div
+            style={{
+              width: bottomInnerWidth || (tableRef.current?.scrollWidth ?? 0),
+              height: 1,
+            }}
+          />
         </div>
       </div>
 
@@ -3660,25 +4210,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
             ))}
           </select>
         </div>
-        <div className="flex items-center gap-6">
-          {/* AI Optimized */}
-          <div className="flex items-center gap-2 text-sm text-gray-700">
-            <span className="w-1 h-5 bg-[#6D5BD0] rounded-sm" />
-            <span>AI Optimized</span>
-          </div>
 
-          {/* Automated Rules */}
-          <div className="flex items-center gap-2 text-sm text-gray-700">
-            <span className="w-1 h-5 bg-[#4CAF7D] rounded-sm" />
-            <span>Automated Rules</span>
-          </div>
-
-          {/* Manual Edit */}
-          <div className="flex items-center gap-2 text-sm text-gray-700">
-            <span className="w-1 h-5 bg-[#F79009] rounded-sm" />
-            <span>Manual Edit</span>
-          </div>
-        </div>
         <div className="flex items-center gap-4">
           <div className="text-sm text-gray-600">
             {startIndex + 1}-{endIndex} of {showAllEnabled ? total : "many"}
@@ -3706,9 +4238,28 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                 onClick={() => setShowAllEnabled(true)}
                 className="text-sm text-blue-600 underline"
               >
-                Show all
+                Load More
               </button>
             )}
+          </div>
+        </div>
+        <div className="flex items-center gap-6">
+          {/* AI Optimized */}
+          <div className="flex items-center gap-2 text-sm text-gray-700">
+            <span className="w-1 h-5 bg-[#6D5BD0] rounded-sm" />
+            <span>AI Optimized</span>
+          </div>
+
+          {/* Automated Rules */}
+          <div className="flex items-center gap-2 text-sm text-gray-700">
+            <span className="w-1 h-5 bg-[#4CAF7D] rounded-sm" />
+            <span>Automated Rules</span>
+          </div>
+
+          {/* Manual Edit */}
+          <div className="flex items-center gap-2 text-sm text-gray-700">
+            <span className="w-1 h-5 bg-[#F79009] rounded-sm" />
+            <span>Manual Edit</span>
           </div>
         </div>
       </div>
