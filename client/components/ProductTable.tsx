@@ -2938,7 +2938,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
     const clientX =
       (e as React.MouseEvent).clientX ??
       (e as React.TouchEvent).touches?.[0]?.clientX;
-    const startWidth = colWidths[index] ?? 200;
+    const startWidth = colWidths[index] ?? 180;
     resizingRef.current = { index, startX: clientX as number, startWidth };
     document.body.style.userSelect = "none";
   };
@@ -3535,7 +3535,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                 }}
               >
                 <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Custome Lebel 1
+                   Lebel 1
                 </div>
                 <div
                   onMouseDown={(e) => startResize(20, e)}
@@ -3556,7 +3556,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                 }}
               >
                 <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Custome Lebel 2
+                   Lebel 2
                 </div>
                 <div
                   onMouseDown={(e) => startResize(20, e)}
@@ -3577,7 +3577,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                 }}
               >
                 <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Custome Lebel 3
+                   Lebel 3
                 </div>
                 <div
                   onMouseDown={(e) => startResize(20, e)}
@@ -3598,7 +3598,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                 }}
               >
                 <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Custome Lebel 4
+                   Lebel 4
                 </div>
                 <div
                   onMouseDown={(e) => startResize(20, e)}
@@ -3619,7 +3619,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                 }}
               >
                 <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Custome Lebel 5
+                   Lebel 5
                 </div>
                 <div
                   onMouseDown={(e) => startResize(20, e)}
@@ -3640,7 +3640,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                 }}
               >
                 <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Custome Lebel 6
+                   Lebel 6
                 </div>
                 <div
                   onMouseDown={(e) => startResize(20, e)}
@@ -3661,7 +3661,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                 }}
               >
                 <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Custome Lebel 7
+                   Lebel 7
                 </div>
                 <div
                   onMouseDown={(e) => startResize(20, e)}
@@ -3682,7 +3682,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                 }}
               >
                 <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Custome Lebel 8
+                   Lebel 8
                 </div>
                 <div
                   onMouseDown={(e) => startResize(20, e)}
@@ -3703,7 +3703,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                 }}
               >
                 <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Custome Lebel 9
+                   Lebel 9
                 </div>
                 <div
                   onMouseDown={(e) => startResize(20, e)}
@@ -4030,7 +4030,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      ----Empty-----
+                      Empty
                     </span>
                   </td>
                   <td
@@ -4045,7 +4045,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      ----Empty-----
+                      Empty
                     </span>
                   </td>
                   <td
@@ -4060,7 +4060,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      ----Empty-----
+                      Empty
                     </span>
                   </td>
                   <td
@@ -4075,7 +4075,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      ----Empty-----
+                      Empty
                     </span>
                   </td>
                   <td
@@ -4090,7 +4090,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      ----Empty-----
+                      Empty
                     </span>
                   </td>
                   <td
@@ -4105,7 +4105,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      ----Empty-----
+                      Empty
                     </span>
                   </td>
                   <td
@@ -4120,7 +4120,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      ----Empty-----
+                      Empty
                     </span>
                   </td>
                   <td
@@ -4135,7 +4135,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      ----Empty-----
+                      Empty
                     </span>
                   </td>
                   <td
@@ -4150,7 +4150,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <span
                       className={`text-sm whitespace-nowrap ${product.pattern ? "text-[#101828]" : "text-[#99A1AF] italic"}`}
                     >
-                      ----Empty-----
+                      Empty
                     </span>
                   </td>
                 </tr>
