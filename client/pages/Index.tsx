@@ -174,7 +174,8 @@ export default function Index() {
                       </button>
                     </TooltipTrigger>
                     <TooltipContent side="bottom">
-                      Add filters to manage visible rows
+                      Import an external file to enhance or enrich existing
+                      product data.
                     </TooltipContent>
                   </Tooltip>
                   <Tooltip>
@@ -201,7 +202,8 @@ export default function Index() {
                       <div className="text-sm">
                         Exports to Google Sheets.
                         <div className="text-xs text-gray-500 mt-1">
-                          Export time depends on inventory size.
+                          Export product data to review fixes or identify what
+                          needs updating.
                         </div>
                       </div>
                     </TooltipContent>
