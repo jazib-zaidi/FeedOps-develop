@@ -2744,11 +2744,211 @@ const products: Product[] = [
     enabled: true,
   },
 ];
+const columns = [
+  { key: "itemId", label: "Item ID", checkbox: true, sticky: true },
+  { key: "title", label: "Product Title" },
+  { key: "description", label: "Description" },
+  { key: "brand", label: "Brand" },
+  { key: "gpc", label: "Google Product Category" },
+  { key: "color", label: "Colour" },
+  { key: "material", label: "Material" },
+  { key: "ageGroup", label: "Age Group" },
+  { key: "condition", label: "Condition" },
+  { key: "size", label: "Size" },
+  { key: "pattern", label: "Pattern" },
+  { key: "gender", label: "Gender" },
+  { key: "price", label: "Price" },
+  { key: "quantity", label: "Quantity" },
+  { key: "availability", label: "Availability" },
+  { key: "gtin", label: "GTIN" },
+  { key: "itemGroupId", label: "Item Group ID" },
+  { key: "productType", label: "Product Type" },
+  { key: "weight", label: "Weight" },
+  { key: "images", label: "Images" },
+  ...Array.from({ length: 9 }).map((_, i) => ({
+    key: `label${i + 1}`,
+    label: `Label ${i + 1}`,
+  })),
+];
 
 export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
   const navigate = useNavigate();
   const [productStates, setProductStates] = useState<boolean[]>(
     products.map((p) => p.enabled),
+  );
+  const DragHandle = () => (
+    <svg
+      className="opacity-0 group-hover:opacity-100 transition-opacity mr-1"
+      width="6"
+      height="19"
+      viewBox="0 0 6 19"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {" "}
+      <path
+        d="M0 1H2V3H0V1ZM4 1H6V3H4V1ZM0 5H2V7H0V5ZM4 5H6V7H4V5ZM0 9H2V11H0V9ZM4 9H6V11H4V9ZM0 13H2V15H0V13ZM4 13H6V15H4V13ZM0 17H2V19H0V17ZM4 17H6V19H4V17Z"
+        fill="black"
+      />{" "}
+    </svg>
+  );
+  const ColumnMenu = ({
+    index,
+    frozenIndex,
+    setFrozenIndex,
+    openHeaderFor,
+    setOpenHeaderFor,
+  }) => (
+    <div className="relative">
+      {/* 3-dot button */}
+      <button
+        onClick={() => setOpenHeaderFor((v) => (v === index ? null : index))}
+        aria-label="Column options"
+        className="p-1 rounded bg-[#EAF0F7] border border-gray-200 hover:bg-white"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16">
+          <circle cx="8" cy="2" r="1.5" fill="#374151" />
+          <circle cx="8" cy="8" r="1.5" fill="#374151" />
+          <circle cx="8" cy="14" r="1.5" fill="#374151" />
+        </svg>
+      </button>
+
+      {/* Dropdown */}
+      {openHeaderFor === index && (
+        <div className="absolute right-0 top-9 w-48 bg-white border rounded shadow p-2 z-50 text-sm font-normal">
+          {/* Freeze / Unfreeze */}
+          <button
+            className="w-full flex items-center gap-2 p-2 text-left hover:hover-bg rounded"
+            onClick={() => {
+              setFrozenIndex((fi) => (fi === index ? null : index));
+              setOpenHeaderFor(null);
+            }}
+          >
+            {frozenIndex === index ? (
+              <>
+                {/* UNFREEZE ICON */}
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  {" "}
+                  <g clip-path="url(#clip0_11_17)">
+                    {" "}
+                    <path
+                      d="M1.8335 8.70833C1.8335 7.37312 1.8335 6.70517 2.24858 6.29008C2.66366 5.875 3.33091 5.875 4.66683 5.875H10.3335C11.6694 5.875 12.3367 5.875 12.7517 6.29008C13.1668 6.70517 13.1668 7.37312 13.1668 8.70833V10.125C13.1668 12.1289 13.1668 13.1305 12.5442 13.7531C11.9223 14.375 10.92 14.375 8.91683 14.375H6.0835C4.08033 14.375 3.07804 14.375 2.45612 13.7531C1.8335 13.1297 1.8335 12.1289 1.8335 10.125V8.70833Z"
+                      stroke="black"
+                      stroke-width="1.41667"
+                    />{" "}
+                    <path
+                      d="M10.6875 5.87497L10.7428 5.4358C10.841 4.65107 10.699 3.85499 10.3353 3.15268C9.97171 2.45038 9.40362 1.87488 8.70609 1.50217C8.00857 1.12946 7.2144 0.977083 6.42846 1.06515C5.64252 1.15321 4.90177 1.47758 4.30403 1.99542L3.72461 2.49763"
+                      stroke="black"
+                      stroke-width="1.41667"
+                      stroke-linecap="round"
+                    />{" "}
+                    <path
+                      d="M7.50016 11.5416C8.28257 11.5416 8.91683 10.9074 8.91683 10.125C8.91683 9.34258 8.28257 8.70831 7.50016 8.70831C6.71776 8.70831 6.0835 9.34258 6.0835 10.125C6.0835 10.9074 6.71776 11.5416 7.50016 11.5416Z"
+                      fill="black"
+                    />{" "}
+                  </g>{" "}
+                  <defs>
+                    {" "}
+                    <clipPath id="clip0_11_17">
+                      {" "}
+                      <rect width="15" height="15" fill="white" />{" "}
+                    </clipPath>{" "}
+                  </defs>{" "}
+                </svg>
+                Unfreeze column
+              </>
+            ) : (
+              <>
+                {/* FREEZE ICON */}
+                <svg
+                  width="11"
+                  height="14"
+                  viewBox="0 0 11 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  {" "}
+                  <g clip-path="url(#clip0_11_13)">
+                    {" "}
+                    <path
+                      d="M0.865234 7.38432C0.865234 7.03315 1.00473 6.69637 1.25305 6.44805C1.50136 6.19974 1.83814 6.06024 2.18931 6.06024H8.80968C9.16084 6.06024 9.49763 6.19974 9.74594 6.44805C9.99425 6.69637 10.1338 7.03315 10.1338 7.38432V11.3565C10.1338 11.7077 9.99425 12.0445 9.74594 12.2928C9.49763 12.5411 9.16084 12.6806 8.80968 12.6806H2.18931C1.83814 12.6806 1.50136 12.5411 1.25305 12.2928C1.00473 12.0445 0.865234 11.7077 0.865234 11.3565V7.38432Z"
+                      stroke="black"
+                      stroke-width="1.32407"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />{" "}
+                    <path
+                      d="M2.85156 6.06021V3.41206C2.85156 2.70973 3.13056 2.03616 3.62719 1.53954C4.12381 1.04292 4.79738 0.763916 5.49971 0.763916C6.20204 0.763916 6.87561 1.04292 7.37223 1.53954C7.86886 2.03616 8.14786 2.70973 8.14786 3.41206V6.06021M4.83767 9.3704C4.83767 9.54598 4.90742 9.71437 5.03158 9.83853C5.15574 9.96268 5.32413 10.0324 5.49971 10.0324C5.67529 10.0324 5.84369 9.96268 5.96784 9.83853C6.092 9.71437 6.16175 9.54598 6.16175 9.3704C6.16175 9.19481 6.092 9.02642 5.96784 8.90227C5.84369 8.77811 5.67529 8.70836 5.49971 8.70836C5.32413 8.70836 5.15574 8.77811 5.03158 8.90227C4.90742 9.02642 4.83767 9.19481 4.83767 9.3704Z"
+                      stroke="black"
+                      stroke-width="1.32407"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />{" "}
+                  </g>{" "}
+                  <defs>
+                    {" "}
+                    <clipPath id="clip0_11_13">
+                      {" "}
+                      <rect width="11" height="13.4444" fill="white" />{" "}
+                    </clipPath>{" "}
+                  </defs>{" "}
+                </svg>
+                Freeze column
+              </>
+            )}
+          </button>
+
+          {/* Add column */}
+          <button className="w-full flex items-center gap-2 p-2 text-left  hover:hover-bg rounded">
+            <svg width="12" height="12" viewBox="0 0 32 32">
+              <path d="M3.85 17.79h10.33v10.38a1.82 1.82 0 0 0 3.64 0V17.84h10.33a1.82 1.82 0 0 0 0-3.64H17.82V3.82a1.82 1.82 0 0 0-3.64 0v10.33H3.85a1.82 1.82 0 0 0 0 3.64Z" />
+            </svg>
+            Add column
+          </button>
+
+          {/* Show row data */}
+          <button className="w-full flex items-center gap-2 p-2 text-left  hover:hover-bg rounded">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {" "}
+              <path
+                d="M5.24984 2.60168C5.8157 2.4219 6.40611 2.33137 6.99984 2.33334C9.43934 2.33334 11.0995 3.79168 12.0894 5.07734C12.5853 5.72251 12.8332 6.04393 12.8332 7.00001C12.8332 7.95668 12.5853 8.27809 12.0894 8.92268C11.0995 10.2083 9.43934 11.6667 6.99984 11.6667C4.56034 11.6667 2.90017 10.2083 1.91025 8.92268C1.41442 8.27868 1.1665 7.95609 1.1665 7.00001C1.1665 6.04334 1.41442 5.72193 1.91025 5.07734C2.21271 4.68232 2.54944 4.31476 2.9165 3.97893"
+                stroke="black"
+                stroke-width="0.875"
+                stroke-linecap="round"
+              />{" "}
+              <path
+                d="M8.75 7C8.75 7.46413 8.56563 7.90925 8.23744 8.23744C7.90925 8.56563 7.46413 8.75 7 8.75C6.53587 8.75 6.09075 8.56563 5.76256 8.23744C5.43437 7.90925 5.25 7.46413 5.25 7C5.25 6.53587 5.43437 6.09075 5.76256 5.76256C6.09075 5.43437 6.53587 5.25 7 5.25C7.46413 5.25 7.90925 5.43437 8.23744 5.76256C8.56563 6.09075 8.75 6.53587 8.75 7Z"
+                stroke="black"
+                stroke-width="0.875"
+              />{" "}
+            </svg>
+            Show Row Data
+          </button>
+
+          <hr />
+
+          {/* Remove column */}
+          <button className="w-full flex items-center gap-2 p-2 text-left  hover:hover-bg rounded">
+            <svg width="11" height="11" viewBox="0 0 32 32">
+              <path d="M2.57 29.48 16.03 18.5l11 10.98a1.75 1.75 0 1 0 2.48-2.48l-11-10.98 10.98-11A1.74 1.74 0 1 0 26.53 2.5L16.03 13.48 5.03 2.5a1.74 1.74 0 1 0-2.46 2.45l10.98 11-10.97 11a1.74 1.74 0 0 0 0 2.46Z" />
+            </svg>
+            Remove column
+          </button>
+        </div>
+      )}
+    </div>
   );
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -2771,6 +2971,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
     {},
   );
   const [expandedMap, setExpandedMap] = useState<Record<string, boolean>>({});
+  const [openHeaderFor, setOpenHeaderFor] = useState<number | null>(null);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -3030,686 +3231,63 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
             </colgroup>
           ) : null}
           <thead
-            className={`bg-[#F8F9FA] border-b border-gray-200 ${isFullscreen ? "sticky top-0 z-40" : ""}`}
+            className={`bg-[#F8F9FA] border-b border-gray-200 ${
+              isFullscreen ? "sticky top-0 z-40" : ""
+            }`}
           >
             <tr>
-              <th
-                className="group text-left py-3 px-4 border-r border-gray-100 sticky left-0 z-20 bg-[#F8F9FA] relative"
-                style={
-                  showRightShadow
-                    ? {
-                        boxShadow: "6px 0 12px rgba(16,24,40,0.06)",
-                        width: colWidths[0],
-                      }
-                    : colWidths[0]
-                      ? { width: colWidths[0] }
-                      : undefined
-                }
-              >
-                <div className="flex items-center gap-3">
-                  <input
-                    type="checkbox"
-                    className="w-4 h-4 rounded border-gray-300"
-                  />
-                  <div>
-                    <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                      Item ID
-                    </div>
-                  </div>
-                </div>
-                {/* Resize handle for column 0 (checkbox / Item ID) */}
-                <div
-                  onMouseDown={(e) => startResize(0, e)}
-                  onTouchStart={(e) => startResize(0, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
+              {columns.map((col, index) => (
+                <th
+                  key={col.key}
+                  className={`group relative text-left py-3 px-4 border-r border-gray-100 bg-[#F8F9FA]
+    ${index === 0 ? "sticky z-40" : ""}
+    ${frozenIndex === index && index !== 0 ? "sticky z-30" : ""}
+  `}
+                  style={{
+                    ...(index === 0
+                      ? { left: 0 }
+                      : frozenIndex === index
+                        ? { left: `${colWidths[0]}px` }
+                        : {}),
+                    ...(colWidths[index] ? { width: colWidths[index] } : {}),
+                  }}
                 >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`group text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 1 ? "sticky z-30" : ""}`}
-                style={
-                  frozenIndex === 1 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : undefined
-                }
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Product Title
-                </div>
-                {candidateIndex === 1 ? (
-                  <button
-                    className="absolute top-2 right-2 px-2 py-0.5 text-xs bg-white border rounded shadow-sm"
-                    onClick={() =>
-                      setFrozenIndex((fi) => (fi === 1 ? null : 1))
-                    }
-                  >
-                    {frozenIndex === 1 ? "Unfreeze" : "Freeze"}
-                  </button>
-                ) : null}
-                <div className="text-[#101828] text-[9px] flex items-center gap-1 mt-1">
-                  <input
-                    type="checkbox"
-                    className="w-3 h-3 rounded border-gray-300"
-                  />
-                  <span>Show Raw Data</span>
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(1, e)}
-                  onTouchStart={(e) => startResize(1, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 2 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 2 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[2] ? { width: colWidths[2] } : {}),
-                }}
-              >
-                <div className="flex items-center gap-2">
-                  <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                    Description
-                  </div>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <button className="w-4 h-4 flex items-center justify-center rounded text-gray-500 hover:bg-gray-100">
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M12 17C12.2833 17 12.521 16.904 12.713 16.712C12.905 16.52 13.0007 16.2827 13 16V12C13 11.7167 12.904 11.4793 12.712 11.288C12.52 11.0967 12.2827 11.0007 12 11C11.7173 10.9993 11.48 11.0953 11.288 11.288C11.096 11.4807 11 11.718 11 12V16C11 16.2833 11.096 16.521 11.288 16.713C11.48 16.905 11.7173 17.0007 12 17ZM12 9C12.2833 9 12.521 8.904 12.713 8.712C12.905 8.52 13.0007 8.28267 13 8C12.9993 7.71733 12.9033 7.48 12.712 7.288C12.5207 7.096 12.2833 7 12 7C11.7167 7 11.4793 7.096 11.288 7.288C11.0967 7.48 11.0007 7.71733 11 8C10.9993 8.28267 11.0953 8.52033 11.288 8.713C11.4807 8.90567 11.718 9.00133 12 9ZM12 22C10.6167 22 9.31667 21.7373 8.1 21.212C6.88334 20.6867 5.825 19.9743 4.925 19.075C4.025 18.1757 3.31267 17.1173 2.788 15.9C2.26333 14.6827 2.00067 13.3827 2 12C1.99933 10.6173 2.262 9.31733 2.788 8.1C3.314 6.88267 4.02633 5.82433 4.925 4.925C5.82367 4.02567 6.882 3.31333 8.1 2.788C9.318 2.26267 10.618 2 12 2C13.382 2 14.682 2.26267 15.9 2.788C17.118 3.31333 18.1763 4.02567 19.075 4.925C19.9737 5.82433 20.6863 6.88267 21.213 8.1C21.7397 9.31733 22.002 10.6173 22 12C21.998 13.3827 21.7353 14.6827 21.212 15.9C20.6887 17.1173 19.9763 18.1757 19.075 19.075C18.1737 19.9743 17.1153 20.687 15.9 21.213C14.6847 21.739 13.3847 22.0013 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z"
-                            fill="black"
-                          />
-                        </svg>
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <div className="text-sm font-medium">
-                        Descriptions are processed as HTML / rich text
-                        <div className="text-xs text-gray-500 mt-1">
-                          Rich text may be stripped or transformed.{" "}
-                          <a
-                            href="/settings"
-                            className="text-blue-600 underline"
-                          >
-                            Description settings
-                          </a>
-                        </div>
-                      </div>
-                    </TooltipContent>
-                  </Tooltip>
-                </div>
-                {candidateIndex === 2 ? (
-                  <button
-                    className="absolute top-2 right-2 px-2 py-0.5 text-xs bg-white border rounded shadow-sm"
-                    onClick={() =>
-                      setFrozenIndex((fi) => (fi === 2 ? null : 2))
-                    }
-                  >
-                    {frozenIndex === 2 ? "Unfreeze" : "Freeze"}
-                  </button>
-                ) : null}
-                <div
-                  onMouseDown={(e) => startResize(2, e)}
-                  onTouchStart={(e) => startResize(2, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 3 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 3 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[3] ? { width: colWidths[3] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Brand
-                </div>
-                {candidateIndex === 3 ? (
-                  <button
-                    className="absolute top-2 right-2 px-2 py-0.5 text-xs bg-white border rounded shadow-sm"
-                    onClick={() =>
-                      setFrozenIndex((fi) => (fi === 3 ? null : 3))
-                    }
-                  >
-                    {frozenIndex === 3 ? "Unfreeze" : "Freeze"}
-                  </button>
-                ) : null}
+                  <div className="flex items-center gap-2">
+                    {/* Drag */}
+                    {index === 0 ? null : <DragHandle />}
 
-                <div
-                  onMouseDown={(e) => startResize(3, e)}
-                  onTouchStart={(e) => startResize(3, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 4 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 4 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[4] ? { width: colWidths[4] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Google Product Category
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(4, e)}
-                  onTouchStart={(e) => startResize(4, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 5 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 5 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[5] ? { width: colWidths[5] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  colour
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(5, e)}
-                  onTouchStart={(e) => startResize(5, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 6 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 6 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[6] ? { width: colWidths[6] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Material
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(6, e)}
-                  onTouchStart={(e) => startResize(6, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 7 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 7 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[7] ? { width: colWidths[7] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Age Group
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(7, e)}
-                  onTouchStart={(e) => startResize(7, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 8 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 8 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[8] ? { width: colWidths[8] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Condition
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(8, e)}
-                  onTouchStart={(e) => startResize(8, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 9 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 9 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[9] ? { width: colWidths[9] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Size
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(9, e)}
-                  onTouchStart={(e) => startResize(9, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 10 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 10 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[10] ? { width: colWidths[10] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Pattern
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(10, e)}
-                  onTouchStart={(e) => startResize(10, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 11 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 11 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[11] ? { width: colWidths[11] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Gender
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 12 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 12 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[12] ? { width: colWidths[12] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Price
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 13 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 13 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[13] ? { width: colWidths[13] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Quantity
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(13, e)}
-                  onTouchStart={(e) => startResize(13, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 14 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 14 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[14] ? { width: colWidths[14] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Availability
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(14, e)}
-                  onTouchStart={(e) => startResize(14, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 15 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 15 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[15] ? { width: colWidths[15] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  GTIN
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(15, e)}
-                  onTouchStart={(e) => startResize(15, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 16 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 16 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[16] ? { width: colWidths[16] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Item Group ID
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(16, e)}
-                  onTouchStart={(e) => startResize(16, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 17 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 17 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[17] ? { width: colWidths[17] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Product Type
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(17, e)}
-                  onTouchStart={(e) => startResize(17, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 18 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 18 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[18] ? { width: colWidths[18] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold">Weight</div>
-                <div
-                  onMouseDown={(e) => startResize(18, e)}
-                  onTouchStart={(e) => startResize(18, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 relative ${frozenIndex === 19 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 19 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[19] ? { width: colWidths[19] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Images
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(19, e)}
-                  onTouchStart={(e) => startResize(19, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 20 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Lebel 1
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(20, e)}
-                  onTouchStart={(e) => startResize(20, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 20 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Lebel 2
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(20, e)}
-                  onTouchStart={(e) => startResize(20, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 20 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Lebel 3
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(20, e)}
-                  onTouchStart={(e) => startResize(20, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 20 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Lebel 4
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(20, e)}
-                  onTouchStart={(e) => startResize(20, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 20 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Lebel 5
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(20, e)}
-                  onTouchStart={(e) => startResize(20, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 20 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Lebel 6
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(20, e)}
-                  onTouchStart={(e) => startResize(20, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 20 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Lebel 7
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(20, e)}
-                  onTouchStart={(e) => startResize(20, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 20 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Lebel 8
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(20, e)}
-                  onTouchStart={(e) => startResize(20, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
-              <th
-                className={`text-left py-3 px-4 border-r border-gray-100 relative ${frozenIndex === 20 ? "sticky z-30" : ""}`}
-                style={{
-                  ...(frozenIndex === 20 && colWidths.length
-                    ? { left: `${colWidths[0]}px`, background: "#F8F9FA" }
-                    : {}),
-                  ...(colWidths[20] ? { width: colWidths[20] } : {}),
-                }}
-              >
-                <div className="text-[#101828] text-sm font-bold whitespace-nowrap">
-                  Lebel 9
-                </div>
-                <div
-                  onMouseDown={(e) => startResize(20, e)}
-                  onTouchStart={(e) => startResize(20, e)}
-                  className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ touchAction: "none" }}
-                >
-                  <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
-                </div>
-              </th>
+                    {/* Label */}
+                    <div className="text-sm font-bold whitespace-nowrap">
+                      {col.label}
+                    </div>
+
+                    <div className="flex-1" />
+
+                    {index === 0 ? null : (
+                      <ColumnMenu
+                        index={index}
+                        frozenIndex={frozenIndex}
+                        setFrozenIndex={setFrozenIndex}
+                        openHeaderFor={openHeaderFor}
+                        setOpenHeaderFor={setOpenHeaderFor}
+                      />
+                    )}
+                  </div>
+
+                  {/* Resize handle */}
+                  <div
+                    onMouseDown={(e) => startResize(index, e)}
+                    onTouchStart={(e) => startResize(index, e)}
+                    className="absolute top-0 right-0 h-full w-3 -mr-1 cursor-col-resize opacity-0 group-hover:opacity-100"
+                    style={{ touchAction: "none" }}
+                  >
+                    <div className="absolute right-1 top-1/4 h-1/2 w-px bg-gray-200" />
+                  </div>
+                </th>
+              ))}
             </tr>
           </thead>
+
           <tbody className="bg-white">
             {products.slice(startIndex, endIndex).map((product, idx) => {
               const index = startIndex + idx;
@@ -3780,6 +3358,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                           >
                             {expandedMap[`title-${index}`] ? (
                               <svg
+                                className="opacity-0 group-hover:opacity-100 transition-opacity"
                                 width="13"
                                 height="13"
                                 viewBox="0 0 13 13"
@@ -3795,6 +3374,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                               </svg>
                             ) : (
                               <svg
+                                className="opacity-0 group-hover:opacity-100 transition-opacity"
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"
@@ -3852,6 +3432,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                             >
                               {expandedMap[`desc-${index}`] ? (
                                 <svg
+                                  className="opacity-0 group-hover:opacity-100 transition-opacity"
                                   width="13"
                                   height="13"
                                   viewBox="0 0 13 13"
@@ -3867,6 +3448,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                                 </svg>
                               ) : (
                                 <svg
+                                  className="opacity-0 group-hover:opacity-100 transition-opacity"
                                   width="24"
                                   height="24"
                                   viewBox="0 0 24 24"
@@ -3938,6 +3520,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                           >
                             {expandedMap[`gcat-${index}`] ? (
                               <svg
+                                className="opacity-0 group-hover:opacity-100 transition-opacity"
                                 width="13"
                                 height="13"
                                 viewBox="0 0 13 13"
@@ -3953,6 +3536,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                               </svg>
                             ) : (
                               <svg
+                                className="opacity-0 group-hover:opacity-100 transition-opacity"
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"

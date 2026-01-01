@@ -82,9 +82,13 @@ export default function Index() {
           style={{
             marginLeft: isFullscreen ? 0 : "var(--sidebar-width, 67px)",
           }}
-          className={isFullscreen ? "pt-0 p-0" : "pt-[70px] p-6"}
+          className={
+            isFullscreen
+              ? "pt-0 p-0"
+              : "pt-[70px] p-6 h-screen flex flex-col"
+          }
         >
-          <div className="mx-auto">
+          <div className="mx-auto w-full flex-grow flex flex-col">
             <div className="mb-3">
               <SecondaryHeader title="Products" fullWidth>
                 <ActionButtons />
@@ -96,8 +100,8 @@ export default function Index() {
               ref={tableContainerRef}
               className={
                 isFullscreen
-                  ? "fixed inset-0 z-50 bg-white p-4 overflow-auto transition-all duration-200"
-                  : "bg-white rounded-[10px] border border-gray-200 shadow-sm p-2 "
+                  ? "fixed inset-0 z-50 bg-white p-4 overflow-auto transition-all duration-200 flex flex-col"
+                  : "bg-white rounded-[10px] border border-gray-200 shadow-sm p-2 flex-grow flex flex-col"
               }
             >
               <div className="flex items-center justify-between  pb-2 pt-1  border-gray-200">
