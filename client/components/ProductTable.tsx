@@ -3354,7 +3354,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                           alt=""
                           className="w-8 h-8 object-cover rounded"
                         />
-                        {`...${String(product.id).slice(-4)}`}
+                        <a className="text-blue-500">{`...${String(product.id).slice(-4)}`}</a>
                       </span>
                     </div>
                   </td>
