@@ -2934,7 +2934,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                 stroke-width="0.875"
               />{" "}
             </svg>
-            Show Row Data
+            Show Raw Data
           </button>
 
           <hr />

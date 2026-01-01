@@ -57,9 +57,14 @@ export function SecondaryHeader({
       className={`bg-white/80 p-4 mb-2 flex items-center justify-between shadow-[0px_8px_24px_-17px_#c7e5ff] ${fullWidthClasses} ${className ?? ""}`}
     >
       <div className="flex flex-col ">
-        {!sidebarOpen && (
-          <div className="text-sm text-gray-500 pl-4">nudelucy.com</div>
-        )}
+        <select
+          className="border border-gray-300 rounded-md ml-2 px-2 py-1 text-[13px] font-medium text-[#101828]"
+          name=""
+          id=""
+        >
+          <option value="workspace1"> nudelucy.com</option>
+          <option value="workspace2">hipkid.com</option>
+        </select>
         <div className="flex align-center items-center">
           {" "}
           <h2 className="text-[20px] font-semibold text-black leading-tight pl-4">

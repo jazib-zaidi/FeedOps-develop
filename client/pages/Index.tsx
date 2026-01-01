@@ -213,7 +213,7 @@ export default function Index() {
                         Exports to Google Sheets.
                         <div className="text-xs text-gray-500 mt-1">
                           Export product data to review fixes or identify what
-                          needs updating.
+                          needs updating. This can take some time.
                         </div>
                       </div>
                     </TooltipContent>
