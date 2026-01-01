@@ -83,9 +83,7 @@ export default function Index() {
             marginLeft: isFullscreen ? 0 : "var(--sidebar-width, 67px)",
           }}
           className={
-            isFullscreen
-              ? "pt-0 p-0"
-              : "pt-[70px] p-6 h-screen flex flex-col"
+            isFullscreen ? "pt-0 p-0" : "pt-[70px] p-6 h-screen flex flex-col"
           }
         >
           <div className="mx-auto w-full flex-grow flex flex-col">
@@ -104,6 +102,10 @@ export default function Index() {
                   : "bg-white rounded-[10px] border border-gray-200 shadow-sm p-2 flex-grow flex flex-col"
               }
             >
+              {isFullscreen && (
+                <div className="text-sm text-gray-500 pl-4">nudelucy.com</div>
+              )}
+
               <div className="flex items-center justify-between  pb-2 pt-1  border-gray-200">
                 <div className="flex gap-3">
                   <Tooltip>

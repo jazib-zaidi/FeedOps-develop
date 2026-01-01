@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useSidebar } from "@/components/ui/sidebar";
 
 interface SecondaryHeaderProps {
   title: React.ReactNode;
@@ -48,26 +49,30 @@ export function SecondaryHeader({
     channels[0].id,
   );
 
+  const { open: sidebarOpen } = useSidebar();
+
   return (
     <div
       style={fullWidthStyle}
       className={`bg-white/80 p-4 mb-2 flex items-center justify-between shadow-[0px_8px_24px_-17px_#c7e5ff] ${fullWidthClasses} ${className ?? ""}`}
     >
-      <div className="flex align-center items-center">
-        <h2 className="text-[20px] font-semibold text-black leading-tight pl-4">
-          {title}
-        </h2>
-        {subtitle && (
-          <div className="text-sm text-gray-500 mt-1">{subtitle}</div>
+      <div className="flex flex-col ">
+        {!sidebarOpen && (
+          <div className="text-sm text-gray-500 pl-4">nudelucy.com</div>
         )}
-
-        {/* Channel selector: custom dropdown with icon */}
-        <div className="flex items-center gap-2 mt-3 pl-4 relative m-0 z-50">
-          <ChannelDropdown
-            channels={channels}
-            selectedChannel={selectedChannel}
-            onSelect={(id: string) => setSelectedChannel(id)}
-          />
+        <div className="flex align-center items-center">
+          {" "}
+          <h2 className="text-[20px] font-semibold text-black leading-tight pl-4">
+            {title}
+          </h2>
+          {/* Channel selector: custom dropdown with icon */}
+          <div className="flex items-center gap-2 mt-3 pl-4 relative m-0 z-50">
+            <ChannelDropdown
+              channels={channels}
+              selectedChannel={selectedChannel}
+              onSelect={(id: string) => setSelectedChannel(id)}
+            />
+          </div>
         </div>
       </div>
 

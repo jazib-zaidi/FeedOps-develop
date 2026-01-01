@@ -191,6 +191,26 @@ export function Sidebar() {
       }`}
     >
       <nav className="flex flex-col gap-2 pt-6 px-2">
+        {!collapsed ? (
+          <select
+            className="border border-gray-300 rounded-md px-2 py-1 text-[13px] font-medium text-[#101828]"
+            name=""
+            id=""
+          >
+            <option value="workspace1"> nudelucy.com</option>
+            <option value="workspace2">hipkid.com</option>
+          </select>
+        ) : (
+          <select
+            className="border border-gray-300 rounded-md px-2 py-1 text-[13px] font-medium text-[#101828]"
+            name=""
+            id=""
+          >
+            <option value="workspace1"> nudelucy.com</option>
+            <option value="workspace2">hipkid.com</option>
+          </select>
+        )}
+
         {navItems.map((item, index) => {
           const isActive = location.pathname === item.href;
           return (
