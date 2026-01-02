@@ -2798,6 +2798,8 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
     setFrozenIndex,
     openHeaderFor,
     setOpenHeaderFor,
+    showRawTitle,
+    setShowRawTitle,
   }) => (
     <div className="relative">
       {/* 3-dot button */}
@@ -2912,8 +2914,19 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
             Add column
           </button>
 
-          {/* Show row data */}
-          <button className="w-full flex items-center gap-2 p-2 text-left  hover:hover-bg rounded">
+          {/* Show row data (title raw toggle) */}
+          <button
+            className="w-full flex items-center gap-2 p-2 text-left  hover:hover-bg rounded"
+            onClick={() => {
+              // Only toggle raw for the title column (index 1)
+
+              setShowRawTitle(() =>
+                index === 1 ? !showRawTitle : showRawTitle,
+              );
+
+              setOpenHeaderFor(null);
+            }}
+          >
             <svg
               width="14"
               height="14"
@@ -2934,7 +2947,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                 stroke-width="0.875"
               />{" "}
             </svg>
-            Show Raw Data
+            {showRawTitle && index === 1 ? "Hide Raw Data" : "Show Raw Data"}
           </button>
 
           <hr />
@@ -2972,6 +2985,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
   );
   const [expandedMap, setExpandedMap] = useState<Record<string, boolean>>({});
   const [openHeaderFor, setOpenHeaderFor] = useState<number | null>(null);
+  const [showRawTitle, setShowRawTitle] = useState<boolean>(false);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -3283,9 +3297,10 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                             </TooltipTrigger>
                             <TooltipContent>
                               <div className="text-sm font-medium">
-                                Descriptions are processed as HTML / rich text
+                                Choose how descriptions are formatted for each
+                                channel.
                                 <div className="text-xs text-gray-500 mt-1">
-                                  Rich text may be stripped or transformed.{" "}
+                                  Manage this in{" "}
                                   <a
                                     href="/settings"
                                     className="text-blue-600 underline"
@@ -3309,6 +3324,8 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                         setFrozenIndex={setFrozenIndex}
                         openHeaderFor={openHeaderFor}
                         setOpenHeaderFor={setOpenHeaderFor}
+                        showRawTitle={showRawTitle}
+                        setShowRawTitle={setShowRawTitle}
                       />
                     )}
                   </div>
@@ -3369,11 +3386,14 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                     <div>
                       <div
                         className="flex gap-1"
-                        style={{ position: "relative" }}
+                        style={{
+                          position: "relative",
+                          height: showRawTitle ? "83px" : "auto",
+                        }}
                       >
                         <div
                           ref={setCellRef(`title-${index}`)}
-                          className={`text-[#101828] text-sm`}
+                          className={`text-[#101828] ai-label text-sm`}
                           style={{
                             display: "-webkit-box",
                             WebkitLineClamp: expandedMap[`title-${index}`]
@@ -3383,7 +3403,38 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                             overflow: "hidden",
                           }}
                         >
+                          <span className="w-1 h-5 bg-[#6D5BD0] rounded-sm" />
                           {product.short_title}
+
+                          {showRawTitle && (
+                            <span className="text-gray-600 text-[12px] border p-1 flex items-center gap-1 mt-2 w-max rounded-sm">
+                              <svg
+                                width="12"
+                                height="12"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                {" "}
+                                <path
+                                  d="M5.24984 2.60168C5.8157 2.4219 6.40611 2.33137 6.99984 2.33334C9.43934 2.33334 11.0995 3.79168 12.0894 5.07734C12.5853 5.72251 12.8332 6.04393 12.8332 7.00001C12.8332 7.95668 12.5853 8.27809 12.0894 8.92268C11.0995 10.2083 9.43934 11.6667 6.99984 11.6667C4.56034 11.6667 2.90017 10.2083 1.91025 8.92268C1.41442 8.27868 1.1665 7.95609 1.1665 7.00001C1.1665 6.04334 1.41442 5.72193 1.91025 5.07734C2.21271 4.68232 2.54944 4.31476 2.9165 3.97893"
+                                  stroke="black"
+                                  stroke-width="0.875"
+                                  stroke-linecap="round"
+                                ></path>{" "}
+                                <path
+                                  d="M8.75 7C8.75 7.46413 8.56563 7.90925 8.23744 8.23744C7.90925 8.56563 7.46413 8.75 7 8.75C6.53587 8.75 6.09075 8.56563 5.76256 8.23744C5.43437 7.90925 5.25 7.46413 5.25 7C5.25 6.53587 5.43437 6.09075 5.76256 5.76256C6.09075 5.43437 6.53587 5.25 7 5.25C7.46413 5.25 7.90925 5.43437 8.23744 5.76256C8.56563 6.09075 8.75 6.53587 8.75 7Z"
+                                  stroke="black"
+                                  stroke-width="0.875"
+                                ></path>{" "}
+                              </svg>
+                              {": "}
+                              {product.short_title
+                                .split(" ")
+                                .slice(0, 5)
+                                .join(" ")}
+                            </span>
+                          )}
                         </div>
                         {isTruncatedMap[`title-${index}`] ? (
                           <button

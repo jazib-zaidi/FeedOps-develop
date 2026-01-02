@@ -141,3 +141,8 @@ th:hover {
 .sticky.z-30 {
   box-shadow: inset -2px 0px 0px 0px #e0e0e0;
 }
+.ai-label {
+  border-left: 4px solid #6d5bd0;
+  border-radius: 5px;
+  padding-left: 8px;
+}

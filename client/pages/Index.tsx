@@ -87,7 +87,7 @@ export default function Index() {
           }
         >
           <div className="mx-auto w-full flex-grow flex flex-col">
-            <div className="mb-3">
+            <div className="">
               <SecondaryHeader title="Products" fullWidth>
                 <ActionButtons />
               </SecondaryHeader>

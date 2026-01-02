@@ -54,24 +54,16 @@ export function SecondaryHeader({
   return (
     <div
       style={fullWidthStyle}
-      className={`bg-white/80 p-4 mb-2 flex items-center justify-between shadow-[0px_8px_24px_-17px_#c7e5ff] ${fullWidthClasses} ${className ?? ""}`}
+      className={`bg-white/80 p-2 pl-4 mb-2 flex items-center justify-between shadow-[0px_8px_24px_-17px_#c7e5ff] ${fullWidthClasses} ${className ?? ""}`}
     >
       <div className="flex flex-col ">
-        <select
-          className="border border-gray-300 rounded-md ml-2 px-2 py-1 text-[13px] font-medium text-[#101828]"
-          name=""
-          id=""
-        >
-          <option value="workspace1"> nudelucy.com</option>
-          <option value="workspace2">hipkid.com</option>
-        </select>
         <div className="flex align-center items-center">
           {" "}
           <h2 className="text-[20px] font-semibold text-black leading-tight pl-4">
             {title}
           </h2>
           {/* Channel selector: custom dropdown with icon */}
-          <div className="flex items-center gap-2 mt-3 pl-4 relative m-0 z-50">
+          <div className="flex items-center gap-2  pl-4 relative m-0 z-50">
             <ChannelDropdown
               channels={channels}
               selectedChannel={selectedChannel}

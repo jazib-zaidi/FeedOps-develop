@@ -1,10 +1,10 @@
 import { useSidebar } from "@/components/ui/sidebar";
-
+import React from "react";
 export function TopBar() {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <div className="fixed top-0 left-0 right-0 h-[70px] bg-black border-b border-gray-200 flex items-center justify-between px-4 z-[60]">
+    <div className="fixed top-0 left-0 right-0 h-[70px] bg-white border-b border-gray-200 flex items-center justify-between px-4 z-[60]">
       <div className="flex items-center gap-3">
         {/* <button className="flex items-center justify-center w-9 h-9 rounded border border-gray-200 bg-[#F9FAFB]">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -41,14 +41,14 @@ export function TopBar() {
           >
             <path
               d="M23.8333 10.5H12.1667C11.2462 10.5 10.5 11.2462 10.5 12.1667V23.8333C10.5 24.7538 11.2462 25.5 12.1667 25.5H23.8333C24.7538 25.5 25.5 24.7538 25.5 23.8333V12.1667C25.5 11.2462 24.7538 10.5 23.8333 10.5Z"
-              stroke="white"
+              stroke="#101828"
               stroke-width="1.66667"
               stroke-linecap="round"
               stroke-linejoin="round"
             />
             <path
               d="M15.5 10.5V25.5"
-              stroke="white"
+              stroke="#101828"
               stroke-width="1.66667"
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -56,23 +56,75 @@ export function TopBar() {
           </svg>
         </button>
         <img
-          className="w-[100px] "
+          className="w-[150px] "
           alt="FeedOps"
-          src="https://app.feedops.com/packs/media/images/feedops_logo_horiz-1375d7fc.png"
+          src="https://feedops.com/wp-content/uploads/2022/12/Feedops-logo_Final-2-4.png"
         />
+        <WorkspaceDropdown />
       </div>
+    </div>
+  );
+}
 
-      <button className="ml-auto">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M12 20.25H16.25C17.3109 20.25 18.3283 19.8286 19.0784 19.0784C19.8286 18.3283 20.25 17.3109 20.25 16.25V13.75M12 20.25H7.75C6.68913 20.25 5.67172 19.8286 4.92157 19.0784C4.17143 18.3283 3.75 17.3109 3.75 16.25V12M12 20.25V15C12 14.2044 11.6839 13.4413 11.1213 12.8787C10.5587 12.3161 9.79565 12 9 12H3.75M3.75 12V7.75C3.75 6.68913 4.17143 5.67172 4.92157 4.92157C5.67172 4.17143 6.68913 3.75 7.75 3.75H10.25M13.75 3.75H19.25C19.526 3.75 19.776 3.862 19.957 4.043M19.957 4.043C20.1446 4.23049 20.2499 4.48481 20.25 4.75V10.25M19.957 4.043L19.25 4.75L13.75 10.25"
-            stroke="black"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+function WorkspaceDropdown() {
+  const workspaces = [
+    { id: "workspace1", label: "nudelucy.com" },
+    { id: "workspace2", label: "hipkid.com" },
+  ];
+
+  const [open, setOpen] = React.useState(false);
+  const [selected, setSelected] = React.useState(workspaces[0].id);
+  const ref = React.useRef<HTMLDivElement | null>(null);
+
+  React.useEffect(() => {
+    const onDoc = (e: MouseEvent) => {
+      if (!ref.current) return;
+      if (!ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("click", onDoc);
+    return () => document.removeEventListener("click", onDoc);
+  }, []);
+
+  const current = workspaces.find((w) => w.id === selected) || workspaces[0];
+
+  return (
+    <div ref={ref} className="relative inline-block text-left ml-2">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="flex items-center gap-2 px-3 py-2 border rounded-md bg-white text-sm"
+        aria-expanded={open}
+      >
+        <span className="min-w-[80px] text-sm">{current.label}</span>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          className={`transform transition-transform ${open ? "rotate-180" : ""}`}
+        >
+          <path d="M7 10l5 5 5-5z" fill="currentColor" />
         </svg>
       </button>
+
+      {open ? (
+        <div className="origin-top-left absolute left-0 mt-2 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+          <div className="py-1">
+            {workspaces.map((w) => (
+              <button
+                key={w.id}
+                onClick={() => {
+                  setSelected(w.id);
+                  setOpen(false);
+                }}
+                className={`w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-50 ${
+                  w.id === selected ? "bg-gray-100" : ""
+                }`}
+              >
+                <span>{w.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
