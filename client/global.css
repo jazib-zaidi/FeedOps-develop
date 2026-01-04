@@ -132,7 +132,13 @@ th:hover {
 /* Tailwind-compatible utility (useful when applying via class names)
 /* Tailwind utility so you can use `hover:hover-bg` or `hover-bg` */
 @layer utilities {
-  .hover-bg {
+  .hover-bg:hover,
+  .group:hover .hover-bg {
+    background-color: #e5f6f9 !important;
+  }
+  /* Apply hover color when parent group is hovered (useful for main nav items) */
+  .hover-bg-parent:hover,
+  .group:hover .hover-bg-parent {
     background-color: #e5f6f9 !important;
   }
 }

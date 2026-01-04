@@ -187,13 +187,85 @@ export function Sidebar() {
       <nav className="flex flex-col gap-2 pt-6 px-2">
         {navItems.map((item, index) => {
           const isActive = location.pathname === item.href;
+          // For the Products item we add a hover-based flyout panel that appears
+          // to the right of the sidebar. Wrap the Link and the flyout in a
+          // common parent with `group` so hovering either keeps the flyout open.
+          if (item.label === "Products") {
+            return (
+              <div key={index} className="relative">
+                <div className="relative group">
+                  <Link
+                    to={item.href}
+                    className={`flex items-center gap-3 transition-all rounded-[10px] h-[42px] px-2 ${
+                      collapsed ? "justify-center" : "justify-start"
+                    } ${isActive ? "bg-white hover-bg-parent" : "hover-bg-parent"} hover:shadow-sm`}
+                  >
+                    <div
+                      className={`${isActive ? "text-[#4A5565]" : "text-[#4A5565]"}`}
+                    >
+                      {item.icon}
+                    </div>
+
+                    {item.badge && (
+                      <div className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#AD46FF]" />
+                    )}
+
+                    {!collapsed ? (
+                      <span className="text-[13px] w-full font-medium text-[#101828] select-none flex items-center gap-2 justify-between">
+                        {item.label}
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          className="text-[#6B7280] opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+                        >
+                          <path
+                            d="M9 6l6 6-6 6"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    ) : null}
+                  </Link>
+
+                  {/* Flyout panel: visible when hovering the group. Keeps open when cursor
+                      moves between the nav item and the panel because both are inside
+                      the same `.group` wrapper. Render even when `collapsed` so hovering
+                      the icon reveals the panel. */}
+                  <div
+                    className={`absolute top-0 ${collapsed ? "left-[66%]" : "left-[93%]"} ml-3 z-50 transition-all duration-200 ease-out pointer-events-none opacity-0 translate-x-[-6px] group-hover:opacity-100 group-hover:translate-x-0 group-hover:pointer-events-auto`}
+                  >
+                    <div className="bg-white border border-gray-200 rounded-[10px] shadow-sm w-44 py-1">
+                      <Link
+                        to="/under-development"
+                        className="block px-4 py-2 text-[13px] text-[#101828] hover:hover-bg"
+                      >
+                        Raw Product Data
+                      </Link>
+                      <Link
+                        to="/"
+                        className="block px-4 py-2 text-[13px] text-[#101828] hover:hover-bg"
+                      >
+                        Product Data
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
           return (
             <Link
               key={index}
               to={item.href}
-              className={`relative group flex items-center gap-3 transition-colors rounded-[10px] h-[42px] px-2 ${
+              className={`relative group flex items-center gap-3 transition-all rounded-[10px] h-[42px] px-2 ${
                 collapsed ? "justify-center" : "justify-start"
-              } ${isActive ? "bg-white" : "hover:bg-gray-50"}`}
+              } ${isActive ? "bg-white hover-bg-parent" : "hover-bg-parent"} hover:shadow-sm`}
             >
               <div
                 className={`${isActive ? "text-[#4A5565]" : "text-[#4A5565]"}`}
@@ -226,7 +298,7 @@ export function Sidebar() {
           to={settingsItem.href}
           className={`group relative flex items-center gap-3 rounded-[10px] h-[42px] px-2 ${
             collapsed ? "justify-center" : "justify-start"
-          } hover:bg-gray-50 transition-colors`}
+          } hover-bg transition-colors`}
         >
           <div className="text-[#4A5565]">{settingsItem.icon}</div>
           {!collapsed ? (
