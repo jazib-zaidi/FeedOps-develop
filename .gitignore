@@ -25,3 +25,4 @@ dist-ssr
 
 .config/
 !.env
+shopify_products_with_metafields.sh
