@@ -252,6 +252,7 @@ export function Sidebar() {
                       >
                         Raw Product Data
                       </a>
+                      <hr />
                       <div className="">
                         <span className="block px-4 py-2 text-[12px] text-[#101828] ">
                           Channels:
@@ -280,6 +281,11 @@ export function Sidebar() {
                             </li>
                           ))}
                         </ul>
+
+                        <hr />
+                        <button className=" block px-4 py-2 text-[13px] text-[#2b6beb] hover:hover-bg w-full text-left">
+                          + Add Channel
+                        </button>
                       </div>
                     </div>
                   </div>
