@@ -8,13 +8,35 @@ interface SecondaryHeaderProps {
   className?: string;
   fullWidth?: boolean;
 }
-
+export const channels = [
+  {
+    id: "google",
+    label: "Google",
+    icon: "https://app.feedops.com/packs/media/google/google-merchant-center-6aab87d5.png",
+  },
+  {
+    id: "microsoft",
+    label: "Microsoft",
+    icon: "https://app.feedops.com/packs/media/microsoft/microsoft-d2e44a05.png",
+  },
+  {
+    id: "meta",
+    label: "Meta",
+    icon: "https://app.feedops.com/packs/media/facebook/meta-749bae07.png",
+  },
+  {
+    id: "pinterest",
+    label: "Pinterest",
+    icon: "https://app.feedops.com/packs/media/pinterest/pinterest-8f0c34f4.png",
+  },
+];
 export function SecondaryHeader({
   title,
   subtitle,
   children,
   className,
   fullWidth = false,
+  isRawProductScreen = false,
 }: SecondaryHeaderProps) {
   const fullWidthClasses = fullWidth ? "rounded-none" : "rounded-md";
 
@@ -49,6 +71,15 @@ export function SecondaryHeader({
     channels[0].id,
   );
 
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+
+    const exists = channels.some((c) => c.id === hash);
+
+    if (exists) {
+      setSelectedChannel(hash);
+    }
+  }, []);
   const { open: sidebarOpen } = useSidebar();
 
   return (
@@ -64,11 +95,13 @@ export function SecondaryHeader({
           </h2>
           {/* Channel selector: custom dropdown with icon */}
           <div className="flex items-center gap-2  pl-4 relative m-0 z-50">
-            <ChannelDropdown
-              channels={channels}
-              selectedChannel={selectedChannel}
-              onSelect={(id: string) => setSelectedChannel(id)}
-            />
+            {isRawProductScreen ? null : (
+              <ChannelDropdown
+                channels={channels}
+                selectedChannel={selectedChannel}
+                onSelect={(id: string) => setSelectedChannel(id)}
+              />
+            )}
           </div>
         </div>
       </div>

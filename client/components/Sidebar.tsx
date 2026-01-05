@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useSidebar } from "@/components/ui/sidebar";
+import { channels } from "./SecondaryHeader";
 
 interface NavItem {
   icon: React.ReactNode;
@@ -94,7 +95,7 @@ export function Sidebar() {
           </g>
         </svg>
       ),
-      label: "Products",
+      label: "Products Data",
       href: "/",
     },
     {
@@ -190,7 +191,7 @@ export function Sidebar() {
           // For the Products item we add a hover-based flyout panel that appears
           // to the right of the sidebar. Wrap the Link and the flyout in a
           // common parent with `group` so hovering either keeps the flyout open.
-          if (item.label === "Products") {
+          if (item.label === "Products Data") {
             return (
               <div key={index} className="relative">
                 <div className="relative group">
@@ -240,18 +241,46 @@ export function Sidebar() {
                     className={`absolute top-0 ${collapsed ? "left-[66%]" : "left-[93%]"} ml-3 z-50 transition-all duration-200 ease-out pointer-events-none opacity-0 translate-x-[-6px] group-hover:opacity-100 group-hover:translate-x-0 group-hover:pointer-events-auto`}
                   >
                     <div className="bg-white border border-gray-200 rounded-[10px] shadow-sm w-44 py-1">
-                      <Link
-                        to="/under-development"
+                      <a
+                        href="/#row-product-data"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          window.location.href = "/#row-product-data";
+                          window.location.reload();
+                        }}
                         className="block px-4 py-2 text-[13px] text-[#101828] hover:hover-bg"
                       >
                         Raw Product Data
-                      </Link>
-                      <Link
-                        to="/"
-                        className="block px-4 py-2 text-[13px] text-[#101828] hover:hover-bg"
-                      >
-                        Product Data
-                      </Link>
+                      </a>
+                      <div className="">
+                        <span className="block px-4 py-2 text-[12px] text-[#101828] ">
+                          Channels:
+                        </span>
+                        <ul className="ml-3">
+                          {channels.map((channel) => (
+                            <li key={channel.id}>
+                              <a
+                                href={`/#${channel.id}`}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  window.location.href = `/#${channel.id}`;
+                                  window.location.reload();
+                                }}
+                                className="block px-4 py-2 text-[13px] text-[#101828] hover:hover-bg"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <img
+                                    className="w-5 h-5"
+                                    src={channel.icon}
+                                    alt={channel.label}
+                                  />{" "}
+                                  {channel.label}
+                                </div>
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>

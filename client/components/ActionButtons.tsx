@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Tooltip, TooltipTrigger, TooltipContent } from "./ui/tooltip";
 
-export function ActionButtons() {
+export function ActionButtons({ isRawProductScreen }) {
   const navigate = useNavigate();
 
   return (
@@ -72,31 +72,31 @@ export function ActionButtons() {
         </svg>
         Columns
       </button> */}
-
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <button
-            onClick={() => navigate("/under-development")}
-            className="flex items-center gap-2 px-4 py-2 rounded-md bg-white text-[#727272] text-[14px] font-medium hover:bg-gray-50 transition-colors"
-          >
-            <svg
-              width="21"
-              height="21"
-              viewBox="0 0 21 21"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+      {isRawProductScreen ? null : (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              onClick={() => navigate("/under-development")}
+              className="flex items-center gap-2 px-4 py-2 rounded-md bg-white text-[#727272] text-[14px] font-medium hover:bg-gray-50 transition-colors"
             >
-              <path
-                d="M6.125 14.875C4.91458 14.875 3.88296 14.4483 3.03013 13.5949C2.17729 12.7415 1.75058 11.7098 1.75 10.5C1.74942 9.29017 2.17613 8.25854 3.03013 7.40513C3.88413 6.55171 4.91575 6.125 6.125 6.125H8.75C8.99792 6.125 9.20588 6.209 9.37388 6.377C9.54188 6.545 9.62558 6.75267 9.625 7C9.62442 7.24733 9.54042 7.45529 9.373 7.62388C9.20558 7.79246 8.99792 7.87617 8.75 7.875H6.125C5.39583 7.875 4.77604 8.13021 4.26563 8.64062C3.75521 9.15104 3.5 9.77083 3.5 10.5C3.5 11.2292 3.75521 11.849 4.26563 12.3594C4.77604 12.8698 5.39583 13.125 6.125 13.125H8.75C8.99792 13.125 9.20588 13.209 9.37388 13.377C9.54188 13.545 9.62558 13.7527 9.625 14C9.62442 14.2473 9.54042 14.4553 9.373 14.6239C9.20558 14.7925 8.99792 14.8762 8.75 14.875H6.125ZM7.875 11.375C7.62708 11.375 7.41942 11.291 7.252 11.123C7.08458 10.955 7.00058 10.7473 7 10.5C6.99942 10.2527 7.08342 10.045 7.252 9.877C7.42058 9.709 7.62825 9.625 7.875 9.625H13.125C13.3729 9.625 13.5809 9.709 13.7489 9.877C13.9169 10.045 14.0006 10.2527 14 10.5C13.9994 10.7473 13.9154 10.9553 13.748 11.1239C13.5806 11.2925 13.3729 11.3762 13.125 11.375H7.875ZM12.25 14.875C12.0021 14.875 11.7944 14.791 11.627 14.623C11.4596 14.455 11.3756 14.2473 11.375 14C11.3744 13.7527 11.4584 13.545 11.627 13.377C11.7956 13.209 12.0033 13.125 12.25 13.125H14.875C15.6042 13.125 16.224 12.8698 16.7344 12.3594C17.2448 11.849 17.5 11.2292 17.5 10.5C17.5 9.77083 17.2448 9.15104 16.7344 8.64062C16.224 8.13021 15.6042 7.875 14.875 7.875H12.25C12.0021 7.875 11.7944 7.791 11.627 7.623C11.4596 7.455 11.3756 7.24733 11.375 7C11.3744 6.75267 11.4584 6.545 11.627 6.377C11.7956 6.209 12.0033 6.125 12.25 6.125H14.875C16.0854 6.125 17.1173 6.55171 17.9708 7.40513C18.8242 8.25854 19.2506 9.29017 19.25 10.5C19.2494 11.7098 18.8227 12.7418 17.9699 13.5957C17.117 14.4497 16.0854 14.8762 14.875 14.875H12.25Z"
-                fill="#727272"
-              />
-            </svg>
-            Feed URL
-          </button>
-        </TooltipTrigger>
-        <TooltipContent side="bottom">Copy Feed Url</TooltipContent>
-      </Tooltip>
-
+              <svg
+                width="21"
+                height="21"
+                viewBox="0 0 21 21"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.125 14.875C4.91458 14.875 3.88296 14.4483 3.03013 13.5949C2.17729 12.7415 1.75058 11.7098 1.75 10.5C1.74942 9.29017 2.17613 8.25854 3.03013 7.40513C3.88413 6.55171 4.91575 6.125 6.125 6.125H8.75C8.99792 6.125 9.20588 6.209 9.37388 6.377C9.54188 6.545 9.62558 6.75267 9.625 7C9.62442 7.24733 9.54042 7.45529 9.373 7.62388C9.20558 7.79246 8.99792 7.87617 8.75 7.875H6.125C5.39583 7.875 4.77604 8.13021 4.26563 8.64062C3.75521 9.15104 3.5 9.77083 3.5 10.5C3.5 11.2292 3.75521 11.849 4.26563 12.3594C4.77604 12.8698 5.39583 13.125 6.125 13.125H8.75C8.99792 13.125 9.20588 13.209 9.37388 13.377C9.54188 13.545 9.62558 13.7527 9.625 14C9.62442 14.2473 9.54042 14.4553 9.373 14.6239C9.20558 14.7925 8.99792 14.8762 8.75 14.875H6.125ZM7.875 11.375C7.62708 11.375 7.41942 11.291 7.252 11.123C7.08458 10.955 7.00058 10.7473 7 10.5C6.99942 10.2527 7.08342 10.045 7.252 9.877C7.42058 9.709 7.62825 9.625 7.875 9.625H13.125C13.3729 9.625 13.5809 9.709 13.7489 9.877C13.9169 10.045 14.0006 10.2527 14 10.5C13.9994 10.7473 13.9154 10.9553 13.748 11.1239C13.5806 11.2925 13.3729 11.3762 13.125 11.375H7.875ZM12.25 14.875C12.0021 14.875 11.7944 14.791 11.627 14.623C11.4596 14.455 11.3756 14.2473 11.375 14C11.3744 13.7527 11.4584 13.545 11.627 13.377C11.7956 13.209 12.0033 13.125 12.25 13.125H14.875C15.6042 13.125 16.224 12.8698 16.7344 12.3594C17.2448 11.849 17.5 11.2292 17.5 10.5C17.5 9.77083 17.2448 9.15104 16.7344 8.64062C16.224 8.13021 15.6042 7.875 14.875 7.875H12.25C12.0021 7.875 11.7944 7.791 11.627 7.623C11.4596 7.455 11.3756 7.24733 11.375 7C11.3744 6.75267 11.4584 6.545 11.627 6.377C11.7956 6.209 12.0033 6.125 12.25 6.125H14.875C16.0854 6.125 17.1173 6.55171 17.9708 7.40513C18.8242 8.25854 19.2506 9.29017 19.25 10.5C19.2494 11.7098 18.8227 12.7418 17.9699 13.5957C17.117 14.4497 16.0854 14.8762 14.875 14.875H12.25Z"
+                  fill="#727272"
+                />
+              </svg>
+              Feed URL
+            </button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">Copy Feed Url</TooltipContent>
+        </Tooltip>
+      )}
       <Tooltip>
         <TooltipTrigger asChild>
           <button
@@ -122,17 +122,18 @@ export function ActionButtons() {
         </TooltipTrigger>
         <TooltipContent side="bottom">Open Channel Settings</TooltipContent>
       </Tooltip>
-
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <button className="flex items-center gap-2 px-5 py-2 rounded-md bg-[#a2d3af] text-white text-[14px] font-semibold hover:bg-[#7bb77a] cursor-not-allowed transition-colors">
-            Queue Changes
-          </button>
-        </TooltipTrigger>
-        <TooltipContent side="bottom">
-          Make a change to the product data to enable this action.
-        </TooltipContent>
-      </Tooltip>
+      {isRawProductScreen ? null : (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button className="flex items-center gap-2 px-5 py-2 rounded-md bg-[#a2d3af] text-white text-[14px] font-semibold hover:bg-[#7bb77a] cursor-not-allowed transition-colors">
+              Queue Changes
+            </button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">
+            Make a change to the product data to enable this action.
+          </TooltipContent>
+        </Tooltip>
+      )}
     </div>
   );
 }

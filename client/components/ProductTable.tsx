@@ -3259,11 +3259,22 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
   `}
                   style={{
                     ...(index === 0
-                      ? { left: 0 }
+                      ? {
+                          left: 0,
+                          width: "200px",
+                          minWidth: "200px",
+                          maxWidth: "200px",
+                        }
                       : frozenIndex === index
-                        ? { left: `${colWidths[0]}px` }
+                        ? {
+                            left: `${colWidths
+                              .slice(0, index)
+                              .reduce((a, b) => a + b, 0)}px`,
+                          }
                         : {}),
-                    ...(colWidths[index] ? { width: colWidths[index] } : {}),
+                    ...(index !== 0 && colWidths[index]
+                      ? { width: colWidths[index] }
+                      : {}),
                   }}
                 >
                   <div className="flex items-center gap-2">
