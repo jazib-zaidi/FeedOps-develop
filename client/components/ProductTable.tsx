@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import ProductHoverPreview from "./ProductHoverPreview";
 import { useNavigate } from "react-router-dom";
 import {
   Tooltip,
@@ -3384,7 +3385,14 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                           alt=""
                           className="w-8 h-8 object-cover rounded"
                         />
-                        <a className="text-blue-500">{`...${String(product.id).slice(-4)}`}</a>
+                        <ProductHoverPreview
+                          itemId={product.id}
+                          imageUrl={product.image_link}
+                          status={product.enabled ? "ACTIVE" : "UNKNOWN"}
+                          productUrl={product.link || product.ads_redirect}
+                          detailsUrl={undefined}
+                          className="text-blue-500 z-[1000]"
+                        />
                       </span>
                     </div>
                   </td>

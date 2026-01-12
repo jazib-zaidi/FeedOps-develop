@@ -6,6 +6,7 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import { Switch } from "@/components/ui/switch";
+import ProductHoverPreview from "./ProductHoverPreview";
 
 interface Product {
   id: number;
@@ -24201,7 +24202,18 @@ export function RawProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                               alt=""
                               className="w-8 h-8 object-cover rounded"
                             />
-                            <a className="text-blue-500">{`...${String(product.id).slice(-4)}`}</a>
+                            <ProductHoverPreview
+                              itemId={product.id}
+                              imageUrl={product.image_src}
+                              status={product.enabled ? "ACTIVE" : "UNKNOWN"}
+                              productUrl={
+                                product.admin_graphql_api_id ||
+                                product.ads_redirect
+                              }
+                              detailsUrl={undefined}
+                              className="text-blue-500 z-[1000]"
+                            />
+                            {/* <a className="text-blue-500">{`...${String(product.id).slice(-4)}`}</a> */}
                           </span>
                         </div>
                       ) : (
