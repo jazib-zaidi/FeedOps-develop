@@ -7,6 +7,7 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import { Switch } from "@/components/ui/switch";
+import { ChevronLeft, ChevronRight, MoveLeftIcon } from "lucide-react";
 
 interface Product {
   id: number;
@@ -4074,25 +4075,26 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="text-sm text-gray-600">
-            {startIndex + 1}-{endIndex} of {showAllEnabled ? total : "many"}
-          </div>
           <div className="flex items-center gap-2">
-            {showAllEnabled ? (
+            {true ? (
               <>
                 <button
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={page <= 1}
                   className="px-3 py-1 rounded bg-gray-100 disabled:opacity-50"
                 >
-                  Prev
+                  <ChevronLeft />
                 </button>
+                <div className="text-sm text-gray-600">
+                  {startIndex + 1}-{endIndex} of{" "}
+                  {showAllEnabled ? total : "many"}
+                </div>
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={page >= totalPages}
                   className="px-3 py-1 rounded bg-gray-100 disabled:opacity-50"
                 >
-                  Next
+                  <ChevronRight />
                 </button>
               </>
             ) : (
