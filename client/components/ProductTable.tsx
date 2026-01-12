@@ -3161,17 +3161,21 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
   };
 
   const onPointerMove = (e: MouseEvent | TouchEvent) => {
-    if (!resizingRef.current) return;
+    const cur = resizingRef.current;
+    if (!cur) return;
     const clientX =
       (e as MouseEvent).clientX ?? (e as TouchEvent).touches?.[0]?.clientX;
-    const delta = (clientX as number) - resizingRef.current.startX;
+    if (clientX == null) return;
+    const delta = (clientX as number) - cur.startX;
     const newWidth = Math.max(
       MIN_COL_WIDTH,
-      Math.min(MAX_COL_WIDTH, resizingRef.current.startWidth + delta),
+      Math.min(MAX_COL_WIDTH, cur.startWidth + delta),
     );
     setColWidths((prev) => {
       const next = [...prev];
-      next[resizingRef?.current!.index] = newWidth;
+      if (cur.index >= 0 && cur.index < next.length) {
+        next[cur.index] = newWidth;
+      }
       return next;
     });
   };
@@ -3267,9 +3271,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                         }
                       : frozenIndex === index
                         ? {
-                            left: `${colWidths
-                              .slice(0, index)
-                              .reduce((a, b) => a + b, 0)}px`,
+                            left: `${colWidths[0]}px`,
                           }
                         : {}),
                     ...(index !== 0 && colWidths[index]
@@ -3404,7 +3406,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                       >
                         <div
                           ref={setCellRef(`title-${index}`)}
-                          className={`text-[#101828] ai-label text-sm`}
+                          className={`text-[#101828]  text-sm`}
                           style={{
                             display: "-webkit-box",
                             WebkitLineClamp: expandedMap[`title-${index}`]
@@ -3414,32 +3416,34 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                             overflow: "hidden",
                           }}
                         >
-                          <span className="w-1 h-5 bg-[#6D5BD0] rounded-sm" />
-                          {product.short_title}
+                          <span className="ai-label flex  rounded-sm">
+                            {product.short_title}
+                          </span>
 
                           {showRawTitle && (
-                            <span className="text-gray-600 text-[12px] border p-1 flex items-center gap-1 mt-2 w-max rounded-sm">
+                            <span className="text-gray-600 text-[12px]  p-1 flex items-center gap-1 mt-2 w-max rounded-sm">
                               <svg
-                                width="12"
-                                height="12"
-                                viewBox="0 0 14 14"
+                                width="3"
+                                height="15"
+                                viewBox="0 0 3 15"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
-                                {" "}
-                                <path
-                                  d="M5.24984 2.60168C5.8157 2.4219 6.40611 2.33137 6.99984 2.33334C9.43934 2.33334 11.0995 3.79168 12.0894 5.07734C12.5853 5.72251 12.8332 6.04393 12.8332 7.00001C12.8332 7.95668 12.5853 8.27809 12.0894 8.92268C11.0995 10.2083 9.43934 11.6667 6.99984 11.6667C4.56034 11.6667 2.90017 10.2083 1.91025 8.92268C1.41442 8.27868 1.1665 7.95609 1.1665 7.00001C1.1665 6.04334 1.41442 5.72193 1.91025 5.07734C2.21271 4.68232 2.54944 4.31476 2.9165 3.97893"
-                                  stroke="black"
-                                  stroke-width="0.875"
-                                  stroke-linecap="round"
-                                ></path>{" "}
-                                <path
-                                  d="M8.75 7C8.75 7.46413 8.56563 7.90925 8.23744 8.23744C7.90925 8.56563 7.46413 8.75 7 8.75C6.53587 8.75 6.09075 8.56563 5.76256 8.23744C5.43437 7.90925 5.25 7.46413 5.25 7C5.25 6.53587 5.43437 6.09075 5.76256 5.76256C6.09075 5.43437 6.53587 5.25 7 5.25C7.46413 5.25 7.90925 5.43437 8.23744 5.76256C8.56563 6.09075 8.75 6.53587 8.75 7Z"
-                                  stroke="black"
-                                  stroke-width="0.875"
-                                ></path>{" "}
+                                <g clip-path="url(#clip0_814_102)">
+                                  <rect width="3" height="21" fill="#C6C6C6" />
+                                </g>
+                                <defs>
+                                  <clipPath id="clip0_814_102">
+                                    <rect
+                                      width="3"
+                                      height="15"
+                                      rx="1.5"
+                                      fill="white"
+                                    />
+                                  </clipPath>
+                                </defs>
                               </svg>
-                              {": "}
+
                               {product.short_title
                                 .split(" ")
                                 .slice(0, 5)
@@ -4110,6 +4114,11 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
           <div className="flex items-center gap-2 text-sm text-gray-700">
             <span className="w-1 h-5 bg-[#F79009] rounded-sm" />
             <span>Manual Edit</span>
+          </div>
+
+          <div className="flex items-center gap-2 text-sm text-gray-700">
+            <span className="w-1 h-5 bg-[#c6c6c6] rounded-sm" />
+            <span>Source Data</span>
           </div>
         </div>
       </div>

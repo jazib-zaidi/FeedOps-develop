@@ -23106,8 +23106,8 @@ export function RawProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
             onClick={() => {}}
           >
             <svg
-              width="18"
-              height="18"
+              width="16"
+              height="16"
               viewBox="0 0 32 32"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -23340,17 +23340,21 @@ export function RawProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
   };
 
   const onPointerMove = (e: MouseEvent | TouchEvent) => {
-    if (!resizingRef.current) return;
+    const cur = resizingRef.current;
+    if (!cur) return;
     const clientX =
       (e as MouseEvent).clientX ?? (e as TouchEvent).touches?.[0]?.clientX;
-    const delta = (clientX as number) - resizingRef.current.startX;
+    if (clientX == null) return;
+    const delta = (clientX as number) - cur.startX;
     const newWidth = Math.max(
       MIN_COL_WIDTH,
-      Math.min(MAX_COL_WIDTH, resizingRef.current.startWidth + delta),
+      Math.min(MAX_COL_WIDTH, cur.startWidth + delta),
     );
     setColWidths((prev) => {
       const next = [...prev];
-      next[resizingRef?.current!.index] = newWidth;
+      if (cur.index >= 0 && cur.index < next.length) {
+        next[cur.index] = newWidth;
+      }
       return next;
     });
   };
@@ -23446,9 +23450,7 @@ export function RawProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                         }
                       : frozenIndex === index
                         ? {
-                            left: `${colWidths
-                              .slice(0, index)
-                              .reduce((a, b) => a + b, 0)}px`,
+                            left: `${colWidths[0]}px`,
                           }
                         : {}),
                     ...(index !== 0 && colWidths[index]
