@@ -4086,8 +4086,7 @@ export function ProductTable({ isFullscreen }: { isFullscreen?: boolean }) {
                   <ChevronLeft />
                 </button>
                 <div className="text-sm text-gray-600">
-                  {startIndex + 1}-{endIndex} of{" "}
-                  {showAllEnabled ? total : "many"}
+                  {startIndex + 1}-{endIndex} of {total}
                 </div>
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
