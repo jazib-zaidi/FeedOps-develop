@@ -11,6 +11,7 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import { RawProductTable } from "@/components/RawProductTable";
+import { CircleX } from "lucide-react";
 
 export default function Index() {
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -123,34 +124,35 @@ export default function Index() {
 
                   <div className="flex items-center justify-between  pb-2 pt-1  border-gray-200">
                     <div className="flex gap-3">
+                      <div className="">
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button className="flex items-center gap-2 px-4 py-2 rounded-md bg-white text-[#364153] text-[12px] font-medium hover:bg-gray-50 transition-colors">
+                              <svg
+                                width="19"
+                                height="19"
+                                viewBox="0 0 19 19"
+                                fill="none"
+                              >
+                                <path
+                                  d="M17.4167 2.375H1.58333L7.91666 9.86417V15.0417L11.0833 16.625V9.86417L17.4167 2.375Z"
+                                  stroke="#364153"
+                                  strokeWidth="1.58"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                              Add Filters
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="bottom">
+                            Add filters to manage visible rows
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <button className="flex items-center gap-2 px-4 py-2 rounded-md border border-[#D1D5DC] bg-white text-[#364153] text-[14px] font-medium hover:bg-gray-50 transition-colors">
-                            <svg
-                              width="19"
-                              height="19"
-                              viewBox="0 0 19 19"
-                              fill="none"
-                            >
-                              <path
-                                d="M17.4167 2.375H1.58333L7.91666 9.86417V15.0417L11.0833 16.625V9.86417L17.4167 2.375Z"
-                                stroke="#364153"
-                                strokeWidth="1.58"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                            Add Filters
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent side="bottom">
-                          Add filters to manage visible rows
-                        </TooltipContent>
-                      </Tooltip>
-
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button className="flex items-center gap-2 px-3 py-2 rounded-md border border-[#D1D5DC] bg-white text-[#364153] text-[14px] font-medium hover:bg-gray-50 transition-colors">
+                          <button className="flex items-center gap-2 px-3 py-2 rounded-md border border-[#D1D5DC] bg-white text-[#364153] text-[12px] font-medium hover:bg-gray-50 transition-colors">
                             <svg
                               width="19"
                               height="19"
@@ -176,7 +178,7 @@ export default function Index() {
                     <div className="flex gap-3 items-center">
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <button className="flex items-center gap-2 px-4 py-2 rounded-md border border-[#D1D5DC] bg-white text-[#364153] text-[14px] font-medium hover:bg-gray-50 transition-colors">
+                          <button className="flex items-center gap-2 px-4 py-2 rounded-md border border-[#D1D5DC] bg-white text-[#364153] text-[12px] font-medium hover:bg-gray-50 transition-colors">
                             <svg
                               width="19"
                               height="19"
@@ -309,12 +311,20 @@ export default function Index() {
 
                 <div className="flex items-center justify-between  pb-2 pt-1  border-gray-200">
                   <div className="flex gap-3">
+                    <button className="flex h-[29px] items-center border border-[#D1D5DC] gap-2 px-4 py-2  bg-white text-[#364153] text-[12px] font-medium hover:bg-gray-50 transition-colors rounded-full">
+                      Availability is one of in stock{" "}
+                      <CircleX size={16} color="gray" />
+                    </button>
+                    <button className="flex h-[29px] items-center border border-[#D1D5DC] gap-2 px-4 py-2  bg-white text-[#364153] text-[12px] font-medium hover:bg-gray-50 transition-colors rounded-full">
+                      Item Enabled is equal to true{" "}
+                      <CircleX size={16} color="gray" />
+                    </button>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <button className="flex items-center gap-2 px-4 py-2 rounded-md border border-[#D1D5DC] bg-white text-[#364153] text-[14px] font-medium hover:bg-gray-50 transition-colors">
+                        <button className="flex border border-[#D1D5DC] items-center gap-2 px-4 py-2 h-[29px] rounded-md bg-white text-[#364153] text-[12px] font-medium hover:bg-gray-50 transition-colors">
                           <svg
-                            width="19"
-                            height="19"
+                            width="15"
+                            height="15"
                             viewBox="0 0 19 19"
                             fill="none"
                           >
@@ -334,12 +344,12 @@ export default function Index() {
                       </TooltipContent>
                     </Tooltip>
 
-                    <Tooltip>
+                    {/* <Tooltip>
                       <TooltipTrigger asChild>
-                        <button className="flex items-center gap-2 px-3 py-2 rounded-md border border-[#D1D5DC] bg-white text-[#364153] text-[14px] font-medium hover:bg-gray-50 transition-colors">
+                        <button className="flex items-center h-[29px] gap-2 px-2 py-2 rounded-md border border-[#D1D5DC] bg-white text-[#364153] text-[12px] font-medium hover:bg-gray-50 transition-colors">
                           <svg
-                            width="19"
-                            height="19"
+                            width="15"
+                            height="15"
                             viewBox="0 0 19 19"
                             fill="none"
                           >
@@ -357,22 +367,15 @@ export default function Index() {
                       <TooltipContent side="bottom">
                         Create a rule to automatically update product data.
                       </TooltipContent>
-                    </Tooltip>
-
-                    <button
-                      onClick={() => setIsRawProductScreen(true)}
-                      className="flex items-center gap-2 px-3 py-2 rounded-md border border-[#D1D5DC] bg-white text-[#364153] text-[14px] font-medium hover:bg-gray-50 transition-colors"
-                    >
-                      Raw Data
-                    </button>
+                    </Tooltip> */}
                   </div>
                   <div className="flex gap-3 items-center">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <button className="flex items-center gap-2 px-4 py-2 rounded-md border border-[#D1D5DC] bg-white text-[#364153] text-[14px] font-medium hover:bg-gray-50 transition-colors">
+                        <button className="flex items-center gap-2 px-2 py-2 h-[29px] rounded-md border border-[#D1D5DC] bg-white text-[#364153] text-[12px] font-medium hover:bg-gray-50 transition-colors">
                           <svg
-                            width="19"
-                            height="19"
+                            width="15"
+                            height="15"
                             viewBox="0 0 19 19"
                             fill="none"
                           >
@@ -398,10 +401,10 @@ export default function Index() {
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <button className="flex items-center gap-2 px-4 py-2 rounded-md border border-[#D1D5DC] bg-white text-[#364153] text-[14px] font-medium hover:bg-gray-50 transition-colors">
+                        <button className="flex items-center gap-2 px-2 h-[29px] py-2 rounded-md border border-[#D1D5DC] bg-white text-[#364153] text-[12px] font-medium hover:bg-gray-50 transition-colors">
                           <svg
-                            width="19"
-                            height="19"
+                            width="15"
+                            height="15"
                             viewBox="0 0 19 19"
                             fill="none"
                           >
@@ -429,10 +432,10 @@ export default function Index() {
 
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <button className="flex items-center gap-2 px-4 py-2 rounded-md border border-[#D1D5DC] bg-white text-[#364153] text-[14px] font-medium hover:bg-gray-50 transition-colors">
+                        <button className="flex items-center gap-2 px-2 py-2 rounded-md border border-[#D1D5DC] bg-white text-[#364153] h-[29px] text-[12px] font-medium hover:bg-gray-50 transition-colors">
                           <svg
-                            width="20"
-                            height="20"
+                            width="15"
+                            height="15"
                             viewBox="0 0 20 20"
                             fill="none"
                           >
