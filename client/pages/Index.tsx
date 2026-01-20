@@ -312,11 +312,10 @@ export default function Index() {
                 <div className="flex items-center justify-between  pb-2 pt-1  border-gray-200">
                   <div className="flex gap-3">
                     <button className="flex h-[29px] items-center border border-[#D1D5DC] gap-2 px-4 py-2  bg-white text-[#364153] text-[12px] font-medium hover:bg-gray-50 transition-colors rounded-full">
-                      Availability is one of in stock{" "}
-                      <CircleX size={16} color="gray" />
+                      Availability In-stock <CircleX size={16} color="gray" />
                     </button>
                     <button className="flex h-[29px] items-center border border-[#D1D5DC] gap-2 px-4 py-2  bg-white text-[#364153] text-[12px] font-medium hover:bg-gray-50 transition-colors rounded-full">
-                      Item Enabled is equal to true{" "}
+                      Item status Enable
                       <CircleX size={16} color="gray" />
                     </button>
                     <Tooltip>
